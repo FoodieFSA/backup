@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
@@ -22,10 +23,10 @@ class AuthController extends Controller
         ]);
 
         $userEmail = $request->Email;
-        $findUser = User::where("Email",$userEmail)->get();
-//        if(!$findUser){
-//            return Response("UserNotFound",401)->json(['User already exists']);
-//        }
+        $findUser = User::where("Email",$userEmail)->first();
+        if($findUser){
+            return Response()->json(["msg"=>'User already exists']);
+        }
         $createdUser = new User;
         $createdUser->name="bac";
         $createdUser->email = $userEmail;
@@ -36,8 +37,8 @@ class AuthController extends Controller
 
 //        $templateType = 'brand';
 //        $this->userInfo->CreateOrganization($createdUser->id, $templateType);
-        $userToken = auth()->login($createdUser);
-        return Response()->json(["hell"=>$request->Email ,"token"=>$findUser]);
+        $userToken = auth()->login($createdUser,true);
+        return Response()->json(["user"=>$createdUser,"token"=>$userToken ]);
     }
 
 }
