@@ -43,7 +43,8 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $casts = [];
-
+    //https://medium.com/employbl/build-authentication-into-your-laravel-api-with-json-web-tokens-jwt-cd223ace8d1a
+    //https://jwt-auth.readthedocs.io/en/docs/quick-start/#update-your-user-model
     public function getJWTIdentifier()
     {
         return $this->getKey();

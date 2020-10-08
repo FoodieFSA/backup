@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Models\User;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
 
 class AuthController extends Controller
 {
@@ -19,7 +20,8 @@ class AuthController extends Controller
     {
         $request->validate([
             'Email' => 'required|string',
-            'Password' => 'required|string|min:8'
+            'Password' => 'required|string|min:8',
+            'Name'=>'required|string',
         ]);
 
         $userEmail = $request->Email;
@@ -28,17 +30,13 @@ class AuthController extends Controller
             return Response()->json(["msg"=>'User already exists']);
         }
         $createdUser = new User;
-        $createdUser->name="bac";
         $createdUser->email = $userEmail;
-//        $createdUser->name = $request->Name;
+        $createdUser->name = $request->Name;
         $createdUser->password = $request->Password;
         $createdUser->save();
-//
 
-//        $templateType = 'brand';
-//        $this->userInfo->CreateOrganization($createdUser->id, $templateType);
-        $userToken = auth()->login($createdUser,true);
-        return Response()->json(["user"=>$createdUser,"token"=>$userToken ]);
+        $userToken = auth()->login($createdUser);
+        return Response()->json(["user"=>$createdUser,"token"=> $userToken ]);
     }
 
 }
