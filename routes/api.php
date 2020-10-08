@@ -15,15 +15,19 @@ use Illuminate\Support\Facades\Route;
 */
 // import the controller class
 use App\Http\Controllers\testController;
+use App\Http\Controllers\AuthController;
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
-//Route::get('/test', function (Request $request) {
+//Route::middleware('auth:api')->get('/user', function (Request $request) {
+//    return $request->user();
+//});
+//
+//Route::get('/user', function (Request $request) {
 //    return response()->json(["test"=>"hellsdsdsdsdso"]);
 //});
 
 Route::group(['prefix' => 'test'], function () {
     Route::get('',[testController::class, 'test']);
+});
+Route::group(['prefix' => 'auth'], function () {
+    Route::post('registerUser',[AuthController::class, 'registerUser']);
 });
