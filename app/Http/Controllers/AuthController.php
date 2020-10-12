@@ -19,20 +19,21 @@ class AuthController extends Controller
     public function registerUser(Request $request): JsonResponse
     {
         $request->validate([
-            'Email' => 'required|string',
-            'Password' => 'required|string|min:8',
-            'Name'=>'required|string',
+            'email' => 'required|string',
+            'password' => 'required|string|min:8',
+//            'Name'=>'required|string',
         ]);
 
-        $userEmail = $request->Email;
+        $userEmail = $request->email;
         $findUser = User::where("Email",$userEmail)->first();
         if($findUser){
             return Response()->json(["msg"=>'User already exists']);
         }
         $createdUser = new User;
         $createdUser->email = $userEmail;
-        $createdUser->name = $request->Name;
-        $createdUser->password = $request->Password;
+        $createdUser->first_name = $request->firstName;
+        $createdUser->last_name = $request->lastName;
+        $createdUser->password = $request->password;
         $createdUser->save();
 
         $userToken = auth()->login($createdUser);
