@@ -19,6 +19,7 @@ use App\Http\Controllers\AuthController;
 
 Route::group(['prefix' => 'test'], function () {
     Route::get('',[testController::class, 'test']);
+    Route::get('test',[testController::class, 'test']);
 });
 
 Route::group(['prefix' => 'auth'], function () {
