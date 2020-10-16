@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 // import the controller class
 use App\Http\Controllers\testController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ExerciseController;
 
 Route::group(['prefix' => 'test'], function () {
     Route::get('',[testController::class, 'test']);
@@ -24,4 +25,10 @@ Route::group(['prefix' => 'test'], function () {
 
 Route::group(['prefix' => 'auth'], function () {
     Route::post('registerUser',[AuthController::class, 'registerUser']);
+});
+
+
+Route::group(['prefix' => 'exercise'], function () {
+    Route::get('',[ExerciseController::class, 'exercise']);
+    Route::get('test',[ExerciseController::class, 'chest']);
 });

@@ -9,6 +9,6 @@ class testController extends Controller
     //
     public function test (Request $request)
     {
-        return response()->json(["msg"=>"test"]);
+        return response()->json(["msg"=>"test", "peter"=>"thomas"]);
     }
 }
