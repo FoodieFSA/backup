@@ -21,23 +21,41 @@ class AuthController extends Controller
         $request->validate([
             'email' => 'required|string',
             'password' => 'required|string|min:8',
-//            'Name'=>'required|string',
         ]);
 
         $userEmail = $request->email;
-        $findUser = User::where("Email",$userEmail)->first();
-        if($findUser){
-            return Response()->json(["msg"=>'User already exists']);
-        }
+//        $findUser = User::where("Email",$userEmail)->get();
+//        if($findUser->count>0){
+//            return Response()->json(["msg"=>'User already exists']);
+//        }
         $createdUser = new User;
         $createdUser->email = $userEmail;
         $createdUser->first_name = $request->firstName;
         $createdUser->last_name = $request->lastName;
         $createdUser->password = $request->password;
+        $createdUser->user_type="user";
         $createdUser->save();
 
         $userToken = auth()->login($createdUser);
-        return Response()->json(["user"=>$createdUser,"token"=> $userToken ]);
-    }
 
+        return $this->RespondWithToken($userToken, $createdUser->id, $createdUser->user_type);
+    }
+    /**
+     * Get the token array structure.
+     *
+     * @param string $token
+     * @param int $userId
+     * @param string $userType
+     * @return JsonResponse
+     */
+    private function RespondWithToken(string $token, int $userId, $userType): JsonResponse
+    {
+        return response()->json([
+            'accessToken' => $token,
+            'tokenType' => 'bearer',
+            'expiresIn' => auth()->factory()->getTTL(),
+            'userId' => $userId,
+            'userType' => $userType,
+        ]);
+    }
 }
