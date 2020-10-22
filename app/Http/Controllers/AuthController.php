@@ -24,10 +24,10 @@ class AuthController extends Controller
         ]);
 
         $userEmail = $request->email;
-//        $findUser = User::where("Email",$userEmail)->get();
-//        if($findUser->count>0){
-//            return Response()->json(["msg"=>'User already exists']);
-//        }
+        $findUser = User::where("Email",$userEmail)->first();
+        if($findUser){
+            return response()->json(["error"=>'User already exists'],401);
+        }
         $createdUser = new User;
         $createdUser->email = $userEmail;
         $createdUser->first_name = $request->firstName;
