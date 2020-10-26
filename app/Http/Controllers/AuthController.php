@@ -13,15 +13,40 @@ class AuthController extends Controller
 
     function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['registerUser']]);
-
+        $this->middleware('auth:api', ['except' => ['registerUser','loginUser']]);
     }
+
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function loginUser(Request $request): JsonResponse
+    {
+        $request->validate([
+            'email' => 'required|string',
+            'password' => 'required|string|min:8',
+        ]);
+
+        $userEmail = $request->email;
+        $findUser = User::where("Email",$userEmail)->first();
+        if(!$findUser){
+            return response()->json(["error"=>'User is not exists'],401);
+        }
+        $userToken = auth()->login($findUser);
+
+        return $this->RespondWithToken($userToken,  $findUser->user_type,$findUser);
+    }
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
     public function registerUser(Request $request): JsonResponse
     {
         $request->validate([
             'email' => 'required|string',
             'password' => 'required|string|min:8',
         ]);
+
 
         $userEmail = $request->email;
         $findUser = User::where("Email",$userEmail)->first();
@@ -38,24 +63,24 @@ class AuthController extends Controller
 
         $userToken = auth()->login($createdUser);
 
-        return $this->RespondWithToken($userToken, $createdUser->id, $createdUser->user_type);
+        return $this->RespondWithToken($userToken, $createdUser->user_type,$createdUser);
     }
     /**
      * Get the token array structure.
-     *
      * @param string $token
-     * @param int $userId
      * @param string $userType
+     * @param object $actualUser
      * @return JsonResponse
      */
-    private function RespondWithToken(string $token, int $userId, $userType): JsonResponse
+    private function RespondWithToken(string $token, String $userType, object $actualUser): JsonResponse
     {
         return response()->json([
             'accessToken' => $token,
             'tokenType' => 'bearer',
             'expiresIn' => auth()->factory()->getTTL(),
-            'id' => $userId,
+            'id' => $actualUser->id,
             'userType' => $userType,
+            'userData'=>$actualUser
         ]);
     }
 }
