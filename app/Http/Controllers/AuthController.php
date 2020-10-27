@@ -13,7 +13,7 @@ class AuthController extends Controller
 
     function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['registerUser','loginUser']]);
+        $this->middleware('auth:api', ['except' => ['registerUser','loginUser','deleteUser']]);
     }
 
     /**
@@ -35,6 +35,17 @@ class AuthController extends Controller
         $userToken = auth()->login($findUser);
 
         return $this->RespondWithToken($userToken,  $findUser->user_type,$findUser);
+    }
+
+    /**
+     * Log the user out (Invalidate the token).
+     *
+     * @return JsonResponse
+     */
+    public function logout(): JsonResponse
+    {
+        auth()->logout();
+        return response()->json(['message' => 'Successfully invalidated token']);
     }
     /**
      * @param Request $request
@@ -82,5 +93,17 @@ class AuthController extends Controller
             'userType' => $userType,
             'userData'=>$actualUser
         ]);
+    }
+    /**
+     * @return JsonResponse
+     * soft delete user
+     * TODO can add more security level to prevent mistake delete (EX:require password)
+     */
+    public function deleteUser(): JsonResponse
+    {
+        $userId = auth()->user()->id;
+        auth()->logout();
+        User::find($userId)->delete();
+        return response()->json(["msg" => 'Account has been deleted']);
     }
 }
