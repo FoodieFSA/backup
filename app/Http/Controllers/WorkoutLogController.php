@@ -21,8 +21,13 @@ class WorkoutLogController extends Controller
         find user to attach workoutlog
         expertise level
         soft-deleted date
-
         */
+
+        $request->validate([
+            'userId' => 'required|string',
+            'expertiseLevel' => 'required|enum',
+            // 'deletedDate' => 'dateTime'
+        ]);
         $userId = $request->userId;
         $findUser = User::where("userId", $userId)->first();
         if(!$findUser) {
