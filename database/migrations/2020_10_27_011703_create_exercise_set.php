@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateWorkoutLogsTable extends Migration
+class CreateExerciseSet extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,14 @@ class CreateWorkoutLogsTable extends Migration
      */
     public function up()
     {
-        Schema::create('workout_logs', function (Blueprint $table) {
+        Schema::create('exercise_set', function (Blueprint $table) {
             $table->id();
-            $table->integer('user_id')->nullable();
-            // TODO: add a soft delete
-            $table->enum('expertise_level', ['beginner', 'intermediate', 'expert'])->default('beginner');
+            $table->integer('workoutlog_id');
+            $table->integer('exercise_id');
             $table->timestamps();
+            $table->boolean('complete')->default(false);
+            $table->integer('weight')->nullable();
+            $table->integer('rep')->nullable();
         });
     }
 
@@ -29,6 +31,6 @@ class CreateWorkoutLogsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('workout_logs');
+        Schema::dropIfExists('exercise_set');
     }
 }
