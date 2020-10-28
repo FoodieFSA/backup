@@ -27,6 +27,7 @@ Route::group(['prefix' => 'test'], function () {
 
 Route::group(['prefix' => 'auth'], function () {
     Route::post('registerUser',[AuthController::class, 'registerUser']);
+    Route::post('loginUser',[AuthController::class, 'loginUser']);
 });
 
 Route::group(['prefix' => 'workoutLog'], function () {
