@@ -23,12 +23,17 @@ Route::group(['prefix' => 'test'], function () {
     Route::get('test',[testController::class, 'test']);
 });
 
+
+
 Route::group(['prefix' => 'auth'], function () {
     Route::post('registerUser',[AuthController::class, 'registerUser']);
     Route::post('loginUser',[AuthController::class, 'loginUser']);
     Route::delete('deleteUser',[AuthController::class, 'deleteUser']);
 });
 
+Route::group(['prefix' => 'user'], function () {
+    Route::put('updateUser',[AuthController::class, 'updateUser']);
+});
 
 Route::group(['prefix' => 'exercise'], function () {
     Route::get('',[ExerciseController::class, 'exercise']);
