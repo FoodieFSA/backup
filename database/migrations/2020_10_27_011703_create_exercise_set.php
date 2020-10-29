@@ -18,7 +18,7 @@ class CreateExerciseSet extends Migration
             $table->integer('workoutlog_id');
             $table->integer('exercise_id');
             $table->timestamps();
-            $table->boolean('complete')->default(true);
+            $table->boolean('complete')->default(false);
             $table->integer('weight')->nullable();
             $table->integer('rep')->nullable();
         });
