@@ -32,7 +32,8 @@ Route::group(['prefix' => 'auth'], function () {
 });
 
 Route::group(['prefix' => 'user'], function () {
-    Route::put('updateUser',[AuthController::class, 'updateUser']);
+    Route::put('updateUser', [AuthController::class, 'updateUser']);
+});
 
 Route::group(['prefix' => 'workoutLog'], function () {
     Route::get('',[WorkoutLogController::class, 'storeLog']);
