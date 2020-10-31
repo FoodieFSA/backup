@@ -28,6 +28,11 @@ Route::group(['prefix' => 'test'], function () {
 Route::group(['prefix' => 'auth'], function () {
     Route::post('registerUser',[AuthController::class, 'registerUser']);
     Route::post('loginUser',[AuthController::class, 'loginUser']);
+    Route::delete('deleteUser',[AuthController::class, 'deleteUser']);
+});
+
+Route::group(['prefix' => 'user'], function () {
+    Route::put('updateUser', [AuthController::class, 'updateUser']);
 });
 
 Route::group(['prefix' => 'workoutLog'], function () {

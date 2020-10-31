@@ -29,6 +29,7 @@ class CreateUsersTable extends Migration
             $table->enum('user_type',['user','admin'])->default('user');
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
