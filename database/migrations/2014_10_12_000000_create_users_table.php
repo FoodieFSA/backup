@@ -13,6 +13,8 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
+
+        // TODO: change the table column to corrrectly reflect the db schema setup
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('first_name');
@@ -23,10 +25,11 @@ class CreateUsersTable extends Migration
             $table->string('google_id')->nullable();
             $table->string('password');
             $table->enum('user_gender', ['Male', 'Female', 'Prefer not to say'])->default('Prefer not to say');
-            $table->string('user_age')->nullable();
-            $table->string('user_height')->nullable();
-            $table->string('user_weight')->nullable();
+            $table->date('user_dob')->nullable();
+            $table->integer('user_height')->nullable();
+            $table->integer('user_weight')->nullable();
             $table->enum('user_type',['user','admin'])->default('user');
+            $table->string('imageUrl')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
