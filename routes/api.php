@@ -37,6 +37,7 @@ Route::group(['prefix' => 'user'], function () {
 
 Route::group(['prefix' => 'workoutLog'], function () {
     Route::get('',[WorkoutLogController::class, 'storeLog']);
+    Route::post('createWorkoutLog',[WorkoutLogController::class, 'createWorkoutLog']);
 });
 
 Route::group(['prefix' => 'exercise'], function () {
