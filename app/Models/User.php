@@ -8,14 +8,14 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Schema;
 use Tymon\JWTAuth\Contracts\JWTSubject;
+use Illuminate\Database\Eloquent\SoftDeletes;
 /**
  * @method static find($userId)
  * @method static create(array $array)
  */
 class User extends Authenticatable implements JWTSubject
 {
-    use HasFactory, Notifiable;
-
+    use HasFactory, Notifiable,SoftDeletes;
     /**
      * The attributes that are mass assignable.
      *
