@@ -77,27 +77,6 @@ class AuthController extends Controller
         return $this->RespondWithToken($userToken, $createdUser->user_type,$createdUser);
     }
     /**
-     * @param Request $request
-     * @return JsonResponse
-     */
-    public function getUser(Request $request): JsonResponse
-    {
-        $request->validate([
-            'email' => 'required|string',
-            'password' => 'required|string|min:8',
-        ]);
-
-        $userEmail = $request->email;
-        $findUser = User::where("Email",$userEmail)->first();
-        if(!$findUser){
-            return response()->json(["error"=>'User does not exist'],401);
-        }
-        $userToken = auth()->login($findUser);
-
-        return $this->RespondWithToken($userToken, $findUser);
-    }
-
-    /**
      * Get the token array structure.
      * @param string $token
      * @param string $userType

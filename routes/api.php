@@ -18,7 +18,7 @@ use App\Http\Controllers\testController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\WorkoutLogController;
 use App\Http\Controllers\ExerciseController;
-
+use App\Http\Controllers\UserController;
 
 Route::group(['prefix' => 'test'], function () {
     Route::get('',[testController::class, 'test']);
@@ -28,12 +28,12 @@ Route::group(['prefix' => 'test'], function () {
 Route::group(['prefix' => 'auth'], function () {
     Route::post('registerUser',[AuthController::class, 'registerUser']);
     Route::post('loginUser',[AuthController::class, 'loginUser']);
-    Route::get('me', [AuthController::class, 'getUser']);
     Route::delete('deleteUser',[AuthController::class, 'deleteUser']);
 });
 
 Route::group(['prefix' => 'user'], function () {
-    Route::put('updateUser', [AuthController::class, 'updateUser']);
+    Route::put('updateUser', [UserController::class, 'updateUser']);
+    Route::get('getUser', [UserController::class, 'getUser']);
 });
 
 Route::group(['prefix' => 'workoutLog'], function () {
