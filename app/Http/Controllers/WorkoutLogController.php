@@ -13,7 +13,13 @@ class WorkoutLogController extends Controller
         return response()->json(["stored"=>"yes"]);
     }
 
-    public function createWorkoutLog (Request $request) {
+     /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    
+     public function createWorkoutLog (Request $request) :JsonReponse 
+    {
 
         /*
         TODO:
@@ -37,5 +43,55 @@ class WorkoutLogController extends Controller
         $createdWorkoutLog->expertise_level = $request->expertiseLevel;
         $createdWorkoutLog->deleted_date = $request->deletedDate;
         $createdWorkoutLog->save();
+    }
+     /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+
+    public function getWorkoutLog (Request $request):JsonReponse 
+    {
+
+        $request->validate([
+            'userId' => 'required|string'
+        ]);
+        $userId = $request->userId;
+        $findWorkoutLog = WorkoutLog::where("user_id", "=", $userId) -> get();
+        return response()->json(["workoutLogs"=>$findWorkoutLog]);
+    }
+
+     /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+
+    public function getSingleWorkoutLog (Request $request):JsonReponse 
+    {
+
+        $request->validate([
+            'userId' => 'required|string',
+            'singleWorkoutLogId' => 'required|string'
+        ]);
+        $userId = $request->userId;
+        $singleWorkoutLogId = $request->singleWorkoutLogId;
+        $findWorkoutLog = WorkoutLog::where([["user_id", "=", $userId],["id","=",$singleWorkoutLogId]]) -> first();
+        return response()->json(["workoutLogs"=>$findWorkoutLog]);
+    }
+    
+     /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+
+    public function updateWorkoutLog (Request $request):JsonReponse 
+    {
+
+        $request->validate([
+            'userId' => 'required|string',
+            'singleWorkoutLogId' => 'required|string',
+        ]);
+        $userId = $request->userId;
+        $singleWorkoutLogId = $request->singleWorkoutLogId;
+            // NEED more work 
     }
 }
