@@ -57,7 +57,7 @@ class AuthController extends Controller
             'email' => 'required|string',
             'password' => 'required|string|min:8',
         ]);
-
+        return response()->json($request);
 
         $userEmail = $request->email;
         $findUser = User::where("Email",$userEmail)->first();

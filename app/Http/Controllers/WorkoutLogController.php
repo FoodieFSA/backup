@@ -23,17 +23,17 @@ class WorkoutLogController extends Controller
 
         $request->validate([
             'userId' => 'required|string',
-            'expertiseLevel' => 'required|enum',
         ]);
         $userId = $request->userId;
-        $findUser = User::where("userId", $userId)->first();
+        $findUser = User::where("id", $userId)->first();
         if(!$findUser) {
             return response()->json(["error"=>"User does not exist"],401);
         }
+        // TODO: create soft delete
         $createdWorkoutLog = new WorkoutLog;
-        $createdWorkoutLog->expertise_level = $request->expertiseLevel;
-        $createdWorkoutLog->softDeletes();
+        // $createdWorkoutLog->expertise_level = $request->expertiseLevel;
         $createdWorkoutLog->save();
-        return response()->json(["newWorkoutLog"=>$createdWorkoutLog]);
+        $findWorkoutLog = WorkoutLog::find($createdWorkoutLog->id);
+        return response()->json(["newWorkoutLog"=>$findWorkoutLog]);
     }
 }
