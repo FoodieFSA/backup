@@ -39,7 +39,6 @@ class UserController extends AbsoluteController
         if(!$findUser){
             return response()->json(["error"=>'User does not exist'],401);
         }
-//        return response()->json(["user"=>"hello"]);
         return response()->json($findUser);
     }
 

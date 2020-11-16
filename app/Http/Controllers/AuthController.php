@@ -5,9 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
-
+use Illuminate\Support\Facades\Hash;
 class AuthController extends Controller
 {
 
@@ -32,9 +35,35 @@ class AuthController extends Controller
         if(!$findUser){
             return response()->json(["error"=>'User does not exist'],401);
         }
-        $userToken = auth()->login($findUser);
 
-        return $this->RespondWithToken($userToken,  $findUser->user_type,$findUser);
+        $credentials = $request->only('email', 'password');
+
+        if(Auth::attempt($credentials)) {
+            $tokenResult = $findUser->createToken('Personal Access Token');
+            $token = $tokenResult->token;
+            return response()->json(['message' =>  $token]);
+        }else {
+            echo "Fail";
+            return response()->json(["abccc"=>  'sdsds']);
+        }
+        //$user = $request->user();
+
+//        $tokenResult = $user->createToken('Personal Access Token');
+//        $token = $tokenResult->token;
+//        if ($request->remember_me)
+//            $token->expires_at = Carbon::now()->addWeeks(1);
+//        $token->save();
+//        return response()->json([
+//            'access_token' => $tokenResult->accessToken,
+//            'token_type' => 'Bearer',
+//            'expires_at' => Carbon::parse(
+//                $tokenResult->token->expires_at
+//            )->toDateTimeString()
+//        ]);
+//        $userToken = auth()->login($findUser);
+//        response.cookie(['jid'=>$userToken,[httpOnly=>true]]);
+//        return $this->RespondWithToken("sdsdsdsdsd",  $findUser->user_type,$findUser);
+//        return $this->RespondWithToken($userToken,  $findUser->user_type,$findUser);
     }
 
     /**
@@ -72,9 +101,9 @@ class AuthController extends Controller
         $createdUser->user_type="user";
         $createdUser->save();
 
-        $userToken = auth()->login($createdUser);
-
-        return $this->RespondWithToken($userToken, $createdUser->user_type,$createdUser);
+//        $userToken = auth()->login($createdUser);
+        Auth::attempt(['email' => $createdUser->email, 'password' =>   $createdUser->password]);
+        return $this->RespondWithToken( 'sdsd', $createdUser->user_type,$createdUser);
     }
     /**
      * Get the token array structure.
@@ -88,7 +117,7 @@ class AuthController extends Controller
         return response()->json([
             'accessToken' => $token,
             'tokenType' => 'bearer',
-            'expiresIn' => auth()->factory()->getTTL(),
+//            'expiresIn' => auth()->factory()->getTTL(),
             'id' => $actualUser->id,
             'userType' => $userType,
             'userData'=>$actualUser
