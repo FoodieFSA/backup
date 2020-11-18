@@ -26,6 +26,14 @@ $app = new Illuminate\Foundation\Application(
 |
 */
 
+//header('Access-Control-Allow-Origin: *');
+//header('Access-Control-Allow-Methods: *');
+
+//header('Access-Control-Allow-Origin: http//localhost:8080');
+//header('Access-Control-Allow-Methods: *');
+//header('Access-Control-Allow-Headers: *');
+header('Content-Type: application/json; charset=UTF-8', true);
+
 $app->singleton(
     Illuminate\Contracts\Http\Kernel::class,
     App\Http\Kernel::class

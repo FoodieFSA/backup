@@ -5,25 +5,29 @@ namespace App\Http\Controllers;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
+
 class AuthController extends Controller
 {
 
     function __construct()
     {
         $this->middleware('auth:api', ['except' => ['registerUser','loginUser','deleteUser']]);
+
     }
 
     /**
      * @param Request $request
-     * @return JsonResponse
      */
-    public function loginUser(Request $request): JsonResponse
+    public function loginUser(Request $request)
     {
         $request->validate([
             'email' => 'required|string',
@@ -39,13 +43,30 @@ class AuthController extends Controller
         $credentials = $request->only('email', 'password');
 
         if(Auth::attempt($credentials)) {
-            $tokenResult = $findUser->createToken('Personal Access Token');
-            $token = $tokenResult->token;
-            return response()->json(['message' =>  $token]);
+
+            $tokens=$this->getTokens($request->email,$request->password);
+//            response.cookie('jid',tokens->refresh_token,);
+//            ->json($tokens)
+
+//            $response = new \Illuminate\Http\Response('Test');
+//            $response->withCookie(cookie('test', 'test', 45000));
+            $cookie = cookie('test', "test", 45000);
+            return response("Sdsdsd")->header('Content-Type',  'application/json; charset=UTF-8')
+                ->withCookie($cookie);
+//            return response("hello")->withCookie(cookie('jid', $tokens->refresh_token, 60));
+//            return response()->json([
+//                'access_token' =>  $accessTokenResult->accessToken,
+//                'token_type' => 'Bearer',
+//                'token_type' => 'Bearer',
+//                'expires_at' => Carbon::parse($accessTokenResult->token->expires_at)->toDateTimeString()
+//            ]);
         }else {
             echo "Fail";
-            return response()->json(["abccc"=>  'sdsds']);
+            return response()->json(['message' => 'Unauthorized'], 401);
         }
+
+
+
         //$user = $request->user();
 
 //        $tokenResult = $user->createToken('Personal Access Token');
@@ -66,6 +87,20 @@ class AuthController extends Controller
 //        return $this->RespondWithToken($userToken,  $findUser->user_type,$findUser);
     }
 
+
+    private function getTokens(String $userEmail,String $userPassword)
+    {
+        $req = Request::create('https://8728a0b507cf.ngrok.io/oauth/token', 'POST',[
+            'grant_type' => 'password',
+            'client_id' => '11',
+            'client_secret' => '58EutzT0MPahGc0YbpS8yZeZe9O8n1DKHQdODNBY',
+            'username' => $userEmail,
+            'password' => $userPassword,
+            'scope' => '*',
+        ]);
+        $res = app()->handle($req);
+        return json_decode($res->getContent());
+    }
     /**
      * Log the user out (Invalidate the token).
      *
