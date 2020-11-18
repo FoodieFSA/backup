@@ -31,11 +31,11 @@ class UserController extends AbsoluteController
      */
     public function getUser(Request $request): JsonResponse
     {
-        $request->validate([
-            'id' => 'required',
-        ]);
+//        $request->validate([
+//            'id' => 'required',
+//        ]);
 
-        $findUser = User::find($request->id);
+        $findUser = User::find(1);
         if(!$findUser){
             return response()->json(["error"=>'User does not exist'],401);
         }

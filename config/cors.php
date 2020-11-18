@@ -19,6 +19,7 @@ return [
 
     'allowed_methods' => ['*'],
 
+    //TODO need to change the domain after deployment
     'allowed_origins' => ['http://localhost:8080'],
 
     'allowed_origins_patterns' => [],

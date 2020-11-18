@@ -2,32 +2,30 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
+use Exception;
+use http\Env\Response;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Models\User;
-use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Auth;
-use Carbon\Carbon;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Cookie;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
+
 
 class AuthController extends Controller
 {
 
     function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['registerUser','loginUser','deleteUser']]);
+        $this->middleware('auth:api', ['except' => ['registerUser','loginUser','refreshToken']]);
 
     }
 
     /**
      * @param Request $request
+     * @return JsonResponse
      */
-    public function loginUser(Request $request)
+    public function loginUser(Request $request):JsonResponse
     {
         $request->validate([
             'email' => 'required|string',
@@ -43,57 +41,55 @@ class AuthController extends Controller
         $credentials = $request->only('email', 'password');
 
         if(Auth::attempt($credentials)) {
-
-            $tokens=$this->getTokens($request->email,$request->password);
-//            response.cookie('jid',tokens->refresh_token,);
-//            ->json($tokens)
-
-//            $response = new \Illuminate\Http\Response('Test');
-//            $response->withCookie(cookie('test', 'test', 45000));
-            $cookie = cookie('test', "test", 45000);
-            return response("Sdsdsd")->header('Content-Type',  'application/json; charset=UTF-8')
-                ->withCookie($cookie);
-//            return response("hello")->withCookie(cookie('jid', $tokens->refresh_token, 60));
-//            return response()->json([
-//                'access_token' =>  $accessTokenResult->accessToken,
-//                'token_type' => 'Bearer',
-//                'token_type' => 'Bearer',
-//                'expires_at' => Carbon::parse($accessTokenResult->token->expires_at)->toDateTimeString()
-//            ]);
+            $responseTokens = $this->getTokens($request->email,$request->password);
+            $cookie = cookie('jid', $responseTokens->refresh_token, 45000);
+            return $this->RespondWithToken($responseTokens,  $findUser->user_type,$findUser,$cookie);
         }else {
-            echo "Fail";
             return response()->json(['message' => 'Unauthorized'], 401);
         }
+    }
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function refreshToken(Request $request):JsonResponse
+    {
+        $hasToken = $request->hasCookie('jid');
+        if(!$hasToken){
+            return response()->json(["accessToken"=>""]);
+        }
 
+        try {
+            $req = Request::create('http://localhost/oauth/token', 'POST', [
+                'grant_type' => 'refresh_token',
+                'refresh_token' => Cookie::get('jid'),
+                'client_id' => env('CLIENT_ID'),
+                'client_secret' => env('CLIENT_SECRET'),
+                'scope' => '*',
+            ]);
 
+            $res = app()->handle($req);
+            $responseTokens = json_decode($res->getContent());
+            $cookie = cookie('jid', $responseTokens->refresh_token, 45000);
+            return response()->json([
+                'accessToken' =>  $responseTokens->access_token,
+                'tokenType' =>  $responseTokens->token_type,
+                'expiresIn' =>  Carbon::now()->addSeconds( $responseTokens->expires_in),
+            ])->withCookie($cookie);
 
-        //$user = $request->user();
+        }catch(Exception $e){
+            return response()->json(["accessToken"=>"","error"=>$e]);
+        }
 
-//        $tokenResult = $user->createToken('Personal Access Token');
-//        $token = $tokenResult->token;
-//        if ($request->remember_me)
-//            $token->expires_at = Carbon::now()->addWeeks(1);
-//        $token->save();
-//        return response()->json([
-//            'access_token' => $tokenResult->accessToken,
-//            'token_type' => 'Bearer',
-//            'expires_at' => Carbon::parse(
-//                $tokenResult->token->expires_at
-//            )->toDateTimeString()
-//        ]);
-//        $userToken = auth()->login($findUser);
-//        response.cookie(['jid'=>$userToken,[httpOnly=>true]]);
-//        return $this->RespondWithToken("sdsdsdsdsd",  $findUser->user_type,$findUser);
-//        return $this->RespondWithToken($userToken,  $findUser->user_type,$findUser);
     }
 
 
     private function getTokens(String $userEmail,String $userPassword)
     {
-        $req = Request::create('https://8728a0b507cf.ngrok.io/oauth/token', 'POST',[
+        $req = Request::create('http://localhost/oauth/token', 'POST',[
             'grant_type' => 'password',
-            'client_id' => '11',
-            'client_secret' => '58EutzT0MPahGc0YbpS8yZeZe9O8n1DKHQdODNBY',
+            'client_id' => env('CLIENT_ID'),
+            'client_secret' => env('CLIENT_SECRET'),
             'username' => $userEmail,
             'password' => $userPassword,
             'scope' => '*',
@@ -142,21 +138,22 @@ class AuthController extends Controller
     }
     /**
      * Get the token array structure.
-     * @param string $token
+     * @param object $tokens
      * @param string $userType
      * @param object $actualUser
+     * @param object $cookie
      * @return JsonResponse
      */
-    private function RespondWithToken(string $token, String $userType, object $actualUser): JsonResponse
+    private function RespondWithToken(object $tokens, String $userType, object $actualUser, object $cookie): JsonResponse
     {
         return response()->json([
-            'accessToken' => $token,
-            'tokenType' => 'bearer',
-//            'expiresIn' => auth()->factory()->getTTL(),
+            'accessToken' => $tokens->access_token,
+            'tokenType' => $tokens->token_type,
+            'expiresIn' =>  Carbon::now()->addSeconds($tokens->expires_in),
             'id' => $actualUser->id,
             'userType' => $userType,
             'userData'=>$actualUser
-        ]);
+        ])->withCookie($cookie);
     }
     /**
      * @return JsonResponse
