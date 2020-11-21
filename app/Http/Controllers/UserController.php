@@ -42,4 +42,6 @@ class UserController extends AbsoluteController
         return response()->json($findUser);
     }
 
+
+
 }

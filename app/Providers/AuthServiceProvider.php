@@ -29,9 +29,9 @@ class AuthServiceProvider extends ServiceProvider
         Passport::routes();
 //        Passport::enableImplicitGrant();
         //for access token expiration date
-        Passport::tokensExpireIn(Carbon::now()->addSeconds(10));
-//        Passport::tokensExpireIn(Carbon::now()->addMinutes(15));
-        Passport::refreshTokensExpireIn(Carbon::now()->addDays(7));
+//        Passport::tokensExpireIn(Carbon::now()->addSeconds(10));
+        Passport::tokensExpireIn(Carbon::now()->addMinutes(15));
+        Passport::refreshTokensExpireIn(Carbon::now()->addDays(14));
 //        Passport::hashClientSecrets();
 
         //

@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\DB;
 
 
 class AuthController extends Controller
@@ -41,6 +42,13 @@ class AuthController extends Controller
         $credentials = $request->only('email', 'password');
 
         if(Auth::attempt($credentials)) {
+
+//            $hasToken = $request->hasCookie('jid');
+//            if($hasToken){
+//                $refreshTokenRepository = app('Laravel\Passport\RefreshTokenRepository');
+//                $refreshTokenRepository->revokeRefreshTokensByAccessTokenId($findUser->token()->id);
+//            }
+
             $responseTokens = $this->getTokens($request->email,$request->password);
             $cookie = cookie('jid', $responseTokens->refresh_token, 45000);
             return $this->RespondWithToken($responseTokens,  $findUser->user_type,$findUser,$cookie);
@@ -98,15 +106,38 @@ class AuthController extends Controller
         return json_decode($res->getContent());
     }
     /**
-     * Log the user out (Invalidate the token).
      *
      * @return JsonResponse
+     * https://stackoverflow.com/questions/43318310/how-to-logout-a-user-from-api-using-laravel-passport
+     * https://laracasts.com/discuss/channels/laravel/laravel-passport-how-to-logout-user?page=0
+     * http://esbenp.github.io/2017/03/19/modern-rest-api-laravel-part-4/
+     * TODO:need to check why database create extra tokens when logout
      */
-    public function logout(): JsonResponse
+    public function logoutUser(): JsonResponse
     {
-        auth()->logout();
-        return response()->json(['message' => 'Successfully invalidated token']);
+
+        if (Auth::check()) {
+//            Auth::logout();
+            $accessToken = Auth::user()->token();
+
+            $refreshToken = DB::table('oauth_refresh_tokens')
+                ->where('access_token_id', $accessToken->id)
+                ->update([
+                    'revoked' => true
+                ]);
+            $accessToken->revoke();
+            // log user out from all devices
+//            DB::table('oauth_access_tokens')
+//                ->where('user_id', Auth::user()->id)
+//                ->update([
+//                    'revoked' => true
+//                ]);
+            return response()->json(['isLoggedOut' => true]);
+        }
+
+        return response()->json(['isLoggedOut' =>false]);
     }
+
     /**
      * @param Request $request
      * @return JsonResponse
