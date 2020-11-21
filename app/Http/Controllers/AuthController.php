@@ -61,7 +61,8 @@ class AuthController extends Controller
         }
 
         try {
-            $req = Request::create('http://localhost/oauth/token', 'POST', [
+            $appUrl = env('APP_URL','https://backupfsa.herokuapp.com');
+            $req = Request::create($appUrl.'/oauth/token', 'POST', [
                 'grant_type' => 'refresh_token',
                 'refresh_token' => Cookie::get('jid'),
                 'client_id' => env('CLIENT_ID'),
@@ -92,7 +93,8 @@ class AuthController extends Controller
      */
     private function getTokens(String $userEmail,String $userPassword)
     {
-        $req = Request::create('http://localhost/oauth/token', 'POST',[
+        $appUrl = env('APP_URL','https://backupfsa.herokuapp.com');
+        $req = Request::create( $appUrl.'/oauth/token', 'POST',[
             'grant_type' => 'password',
             'client_id' => env('CLIENT_ID'),
             'client_secret' => env('CLIENT_SECRET'),
@@ -141,7 +143,6 @@ class AuthController extends Controller
             'email' => 'required|string',
             'password' => 'required|string|min:8',
         ]);
-        return response()->json($request);
 
         $userEmail = $request->email;
         $findUser = User::where("Email",$userEmail)->first();
