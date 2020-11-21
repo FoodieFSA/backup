@@ -42,13 +42,6 @@ class AuthController extends Controller
 
         if(Auth::attempt($credentials)) {
 
-            // revoke the unexpired refresh token
-            $hasToken = $request->hasCookie('jid');
-            if($hasToken){
-                $refreshTokenRepository = app('Laravel\Passport\RefreshTokenRepository');
-                $refreshTokenRepository->revokeRefreshTokensByAccessTokenId($findUser->token()->id);
-            }
-
             $responseTokens = $this->getTokens($request->email,$request->password);
             $cookie = cookie('jid', $responseTokens->refresh_token, 45000);
             return $this->RespondWithToken($responseTokens,  $findUser->user_type,$findUser,$cookie);
