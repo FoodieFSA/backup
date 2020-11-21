@@ -157,7 +157,7 @@ class AuthController extends Controller
         $createdUser->user_type="user";
         $createdUser->save();
 
-        Auth::attempt(['email' => $createdUser->email, 'password' =>$createdUser->password]);
+        Auth::attempt(['email' => $request->email, 'password' =>$request->password]);
 //        $responseTokens = $this->getTokens($userEmail,  $request->password);
         //testing
         $responseTokens=["refresh_token"=>123,"token_type"=>'sdsds',"access_token"=>123232,'expires_in'=>1000];
