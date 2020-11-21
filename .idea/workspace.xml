@@ -226,7 +226,7 @@
       <workItem from="1605748899414" duration="748000" />
       <workItem from="1605829291323" duration="1612000" />
       <workItem from="1605910211322" duration="9390000" />
-      <workItem from="1605972677068" duration="11801000" />
+      <workItem from="1605972677068" duration="11923000" />
     </task>
     <servers />
   </component>
@@ -238,6 +238,10 @@
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
     <state x="2526" y="328" width="698" height="449" key="#com.intellij.fileTypes.FileTypeChooser/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1602785046811" />
+    <state x="627" y="229" width="655" height="619" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1605987851545">
+      <screen x="0" y="27" width="1920" height="1053" />
+    </state>
+    <state x="627" y="229" width="655" height="619" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/1920.0.1920.1080/0.27.1920.1053@0.27.1920.1053" timestamp="1605987851545" />
     <state x="627" y="240" width="655" height="598" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1602174433891">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
