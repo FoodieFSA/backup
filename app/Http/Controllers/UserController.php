@@ -25,4 +25,23 @@ class UserController extends AbsoluteController
         $actualUser = User::find($request->id);
         return response()->json(["msg"=>$actualUser]);
     }
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function getUser(Request $request): JsonResponse
+    {
+//        $request->validate([
+//            'id' => 'required',
+//        ]);
+
+        $findUser = User::find(1);
+        if(!$findUser){
+            return response()->json(["error"=>'User does not exist'],401);
+        }
+        return response()->json($findUser);
+    }
+
+
+
 }

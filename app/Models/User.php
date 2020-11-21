@@ -9,13 +9,15 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Schema;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Laravel\Passport\HasApiTokens;
+use Illuminate\Support\Facades\Hash;
 /**
  * @method static find($userId)
  * @method static create(array $array)
  */
-class User extends Authenticatable implements JWTSubject
+class User extends Authenticatable
 {
-    use HasFactory, Notifiable,SoftDeletes;
+    use HasFactory, Notifiable,SoftDeletes,HasApiTokens;
     /**
      * The attributes that are mass assignable.
      *
@@ -45,18 +47,18 @@ class User extends Authenticatable implements JWTSubject
     protected $casts = [];
     //https://medium.com/employbl/build-authentication-into-your-laravel-api-with-json-web-tokens-jwt-cd223ace8d1a
     //https://jwt-auth.readthedocs.io/en/docs/quick-start/#update-your-user-model
-    public function getJWTIdentifier()
+    public function getAuthIdentifier()
     {
-        return $this->getKey();
+        Return $this->getKey();
     }
-
-    /**
-     * @return array
-     */
-    public function getJWTCustomClaims(): array
-    {
-        return [];
-    }
+//
+//    /**
+//     * @return array
+//     */
+//    public function getJWTCustomClaims(): array
+//    {
+//        return [];
+//    }
 
     /**
      * @param string $password
@@ -64,7 +66,7 @@ class User extends Authenticatable implements JWTSubject
     public function setPasswordAttribute(string $password): void
     {
         if (!empty($password)) {
-            $this->attributes['password'] = bcrypt($password);
+            $this->attributes['password'] =Hash::make($password);
         }
     }
 }

@@ -2,25 +2,30 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
+use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Http;
+
 
 class AuthController extends Controller
 {
 
     function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['registerUser','loginUser','deleteUser']]);
+        $this->middleware('auth:api', ['except' => ['registerUser','loginUser','refreshToken']]);
+
     }
 
     /**
      * @param Request $request
      * @return JsonResponse
      */
-    public function loginUser(Request $request): JsonResponse
+    public function loginUser(Request $request):JsonResponse
     {
         $request->validate([
             'email' => 'required|string',
@@ -32,21 +37,100 @@ class AuthController extends Controller
         if(!$findUser){
             return response()->json(["error"=>'User does not exist'],401);
         }
-        $userToken = auth()->login($findUser);
 
-        return $this->RespondWithToken($userToken,  $findUser->user_type,$findUser);
+        $credentials = $request->only('email', 'password');
+
+        if(Auth::attempt($credentials)) {
+
+            $responseTokens = $this->getTokens($request->email,$request->password);
+            $cookie = cookie('jid', $responseTokens->refresh_token, 45000);
+            return $this->RespondWithToken($responseTokens,  $findUser->user_type,$findUser,$cookie);
+        }else {
+            return response()->json(['message' => 'Unauthorized'], 401);
+        }
+    }
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function refreshToken(Request $request):JsonResponse
+    {
+        $hasToken = $request->hasCookie('jid');
+        if(!$hasToken){
+            return response()->json(["accessToken"=>""]);
+        }
+
+        try {
+            $req = Request::create('http://localhost/oauth/token', 'POST', [
+                'grant_type' => 'refresh_token',
+                'refresh_token' => Cookie::get('jid'),
+                'client_id' => env('CLIENT_ID'),
+                'client_secret' => env('CLIENT_SECRET'),
+                'scope' => '*',
+            ]);
+
+            $res = app()->handle($req);
+            $responseTokens = json_decode($res->getContent());
+
+            $cookie = cookie('jid', $responseTokens->refresh_token, 45000);
+
+            return response()->json([
+                'accessToken' =>  $responseTokens->access_token,
+                'tokenType' =>  $responseTokens->token_type,
+                'expiresIn' =>  Carbon::now()->addSeconds( $responseTokens->expires_in),
+            ])->withCookie($cookie);
+
+        }catch(Exception $e){
+            return response()->json(["accessToken"=>"","error"=>$e]);
+        }
+
     }
 
     /**
-     * Log the user out (Invalidate the token).
-     *
-     * @return JsonResponse
+     * @param String $userEmail
+     * @param String $userPassword
      */
-    public function logout(): JsonResponse
+    private function getTokens(String $userEmail,String $userPassword)
     {
-        auth()->logout();
-        return response()->json(['message' => 'Successfully invalidated token']);
+        $req = Request::create('http://localhost/oauth/token', 'POST',[
+            'grant_type' => 'password',
+            'client_id' => env('CLIENT_ID'),
+            'client_secret' => env('CLIENT_SECRET'),
+            'username' => $userEmail,
+            'password' => $userPassword,
+            'scope' => '*',
+        ]);
+        $res = app()->handle($req);
+        return json_decode($res->getContent());
     }
+
+    /**
+     * @return JsonResponse
+     * https://stackoverflow.com/questions/43318310/how-to-logout-a-user-from-api-using-laravel-passport
+     * https://laracasts.com/discuss/channels/laravel/laravel-passport-how-to-logout-user?page=0
+     * http://esbenp.github.io/2017/03/19/modern-rest-api-laravel-part-4/
+     */
+    public function logoutUser(): JsonResponse
+    {
+        if (Auth::check()) {
+            $accessToken = Auth::user()->token();
+            $refreshToken = DB::table('oauth_refresh_tokens')
+                ->where('access_token_id', $accessToken->id)
+                ->update(['revoked' => true]);
+            $accessToken->revoke();
+
+            // log user out from all devices
+//            DB::table('oauth_access_tokens')
+//                ->where('user_id', Auth::user()->id)
+//                ->update([
+//                    'revoked' => true
+//                ]);
+            return response()->json(['isLoggedOut' => true])->withCookie(cookie("jid","", 0));
+        }
+
+        return response()->json(['isLoggedOut' =>false]);
+    }
+
     /**
      * @param Request $request
      * @return JsonResponse
@@ -72,48 +156,29 @@ class AuthController extends Controller
         $createdUser->user_type="user";
         $createdUser->save();
 
-        $userToken = auth()->login($createdUser);
-
-        return $this->RespondWithToken($userToken, $createdUser->user_type,$createdUser);
+        Auth::attempt(['email' => $createdUser->email, 'password' =>$createdUser->password]);
+        $responseTokens = $this->getTokens($userEmail,  $request->password);
+        $cookie = cookie('jid', $responseTokens->refresh_token, 45000);
+        return $this->RespondWithToken($responseTokens, $createdUser->user_type,$createdUser, $cookie);
     }
-    /**
-     * @param Request $request
-     * @return JsonResponse
-     */
-    public function getUser(Request $request): JsonResponse
-    {
-        $request->validate([
-            'email' => 'required|string',
-            'password' => 'required|string|min:8',
-        ]);
-
-        $userEmail = $request->email;
-        $findUser = User::where("Email",$userEmail)->first();
-        if(!$findUser){
-            return response()->json(["error"=>'User does not exist'],401);
-        }
-        $userToken = auth()->login($findUser);
-
-        return $this->RespondWithToken($userToken, $findUser);
-    }
-
     /**
      * Get the token array structure.
-     * @param string $token
+     * @param object $tokens
      * @param string $userType
      * @param object $actualUser
+     * @param object $cookie
      * @return JsonResponse
      */
-    private function RespondWithToken(string $token, String $userType, object $actualUser): JsonResponse
+    private function RespondWithToken(object $tokens, String $userType, object $actualUser, object $cookie): JsonResponse
     {
         return response()->json([
-            'accessToken' => $token,
-            'tokenType' => 'bearer',
-            'expiresIn' => auth()->factory()->getTTL(),
+            'accessToken' => $tokens->access_token,
+            'tokenType' => $tokens->token_type,
+            'expiresIn' =>  Carbon::now()->addSeconds($tokens->expires_in),
             'id' => $actualUser->id,
             'userType' => $userType,
             'userData'=>$actualUser
-        ]);
+        ])->withCookie($cookie);
     }
     /**
      * @return JsonResponse

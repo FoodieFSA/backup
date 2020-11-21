@@ -29,7 +29,6 @@ class CreateUsersTable extends Migration
             $table->integer('user_height')->nullable();
             $table->integer('user_weight')->nullable();
             $table->enum('user_type',['user','admin'])->default('user');
-            $table->string('imageUrl')->nullable();
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();
