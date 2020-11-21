@@ -20,7 +20,7 @@ return [
     'allowed_methods' => ['*'],
 
     //TODO need to change the domain after deployment
-    'allowed_origins' => ['http://localhost:8080'],
+    'allowed_origins' => [env('ALLOWED_ORIGINS','https://keekup-5ad5b.web.app/')],
 
     'allowed_origins_patterns' => [],
 
