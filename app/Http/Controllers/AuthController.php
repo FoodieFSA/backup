@@ -61,8 +61,8 @@ class AuthController extends Controller
         }
 
         try {
-            $appUrl = env('APP_URL','https://backupfsa.herokuapp.com');
-            $req = Request::create($appUrl.'/oauth/token', 'POST', [
+//            $appUrl = env('APP_URL','https://backupfsa.herokuapp.com');
+            $req = Request::create('https://backupfsa.herokuapp.com/oauth/token', 'POST', [
                 'grant_type' => 'refresh_token',
                 'refresh_token' => Cookie::get('jid'),
                 'client_id' => env('CLIENT_ID'),
@@ -93,8 +93,8 @@ class AuthController extends Controller
      */
     private function getTokens(String $userEmail,String $userPassword)
     {
-        $appUrl = env('APP_URL','https://backupfsa.herokuapp.com');
-        $req = Request::create( $appUrl.'/oauth/token', 'POST',[
+//        $appUrl = env('APP_URL','https://backupfsa.herokuapp.com');
+        $req = Request::create( 'https://backupfsa.herokuapp.com/oauth/token', 'POST',[
             'grant_type' => 'password',
             'client_id' => env('CLIENT_ID'),
             'client_secret' => env('CLIENT_SECRET'),
