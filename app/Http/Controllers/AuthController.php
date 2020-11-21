@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use Exception;
-use http\Env\Response;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -43,11 +42,12 @@ class AuthController extends Controller
 
         if(Auth::attempt($credentials)) {
 
-//            $hasToken = $request->hasCookie('jid');
-//            if($hasToken){
-//                $refreshTokenRepository = app('Laravel\Passport\RefreshTokenRepository');
-//                $refreshTokenRepository->revokeRefreshTokensByAccessTokenId($findUser->token()->id);
-//            }
+            // revoke the unexpired refresh token
+            $hasToken = $request->hasCookie('jid');
+            if($hasToken){
+                $refreshTokenRepository = app('Laravel\Passport\RefreshTokenRepository');
+                $refreshTokenRepository->revokeRefreshTokensByAccessTokenId($findUser->token()->id);
+            }
 
             $responseTokens = $this->getTokens($request->email,$request->password);
             $cookie = cookie('jid', $responseTokens->refresh_token, 45000);
@@ -78,7 +78,9 @@ class AuthController extends Controller
 
             $res = app()->handle($req);
             $responseTokens = json_decode($res->getContent());
+
             $cookie = cookie('jid', $responseTokens->refresh_token, 45000);
+
             return response()->json([
                 'accessToken' =>  $responseTokens->access_token,
                 'tokenType' =>  $responseTokens->token_type,
@@ -91,7 +93,10 @@ class AuthController extends Controller
 
     }
 
-
+    /**
+     * @param String $userEmail
+     * @param String $userPassword
+     */
     private function getTokens(String $userEmail,String $userPassword)
     {
         $req = Request::create('http://localhost/oauth/token', 'POST',[
@@ -105,34 +110,29 @@ class AuthController extends Controller
         $res = app()->handle($req);
         return json_decode($res->getContent());
     }
+
     /**
-     *
      * @return JsonResponse
      * https://stackoverflow.com/questions/43318310/how-to-logout-a-user-from-api-using-laravel-passport
      * https://laracasts.com/discuss/channels/laravel/laravel-passport-how-to-logout-user?page=0
      * http://esbenp.github.io/2017/03/19/modern-rest-api-laravel-part-4/
-     * TODO:need to check why database create extra tokens when logout
      */
     public function logoutUser(): JsonResponse
     {
-
         if (Auth::check()) {
-//            Auth::logout();
             $accessToken = Auth::user()->token();
-
             $refreshToken = DB::table('oauth_refresh_tokens')
                 ->where('access_token_id', $accessToken->id)
-                ->update([
-                    'revoked' => true
-                ]);
+                ->update(['revoked' => true]);
             $accessToken->revoke();
+
             // log user out from all devices
 //            DB::table('oauth_access_tokens')
 //                ->where('user_id', Auth::user()->id)
 //                ->update([
 //                    'revoked' => true
 //                ]);
-            return response()->json(['isLoggedOut' => true]);
+            return response()->json(['isLoggedOut' => true])->withCookie(cookie("jid","", 0));
         }
 
         return response()->json(['isLoggedOut' =>false]);
@@ -163,9 +163,10 @@ class AuthController extends Controller
         $createdUser->user_type="user";
         $createdUser->save();
 
-//        $userToken = auth()->login($createdUser);
-        Auth::attempt(['email' => $createdUser->email, 'password' =>   $createdUser->password]);
-        return $this->RespondWithToken( 'sdsd', $createdUser->user_type,$createdUser);
+        Auth::attempt(['email' => $createdUser->email, 'password' =>$createdUser->password]);
+        $responseTokens = $this->getTokens($userEmail,  $request->password);
+        $cookie = cookie('jid', $responseTokens->refresh_token, 45000);
+        return $this->RespondWithToken($responseTokens, $createdUser->user_type,$createdUser, $cookie);
     }
     /**
      * Get the token array structure.
