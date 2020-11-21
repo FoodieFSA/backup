@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\WorkoutLog;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class WorkoutLogController extends Controller
 {
@@ -13,29 +14,26 @@ class WorkoutLogController extends Controller
         return response()->json(["stored"=>"yes"]);
     }
 
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+
     public function createWorkoutLog (Request $request) {
-
-        /*
-        TODO:
-
-        find user to attach workoutlog
-        expertise level
-        soft-deleted date
-        */
 
         $request->validate([
             'userId' => 'required|string',
-            'expertiseLevel' => 'required|enum',
-            // 'deletedDate' => 'dateTime'
         ]);
         $userId = $request->userId;
-        $findUser = User::where("userId", $userId)->first();
+        $findUser = User::where("id", $userId)->first();
         if(!$findUser) {
             return response()->json(["error"=>"User does not exist"],401);
         }
+        // TODO: create soft delete
         $createdWorkoutLog = new WorkoutLog;
-        $createdWorkoutLog->expertise_level = $request->expertiseLevel;
-        $createdWorkoutLog->deleted_date = $request->deletedDate;
+        // $createdWorkoutLog->expertise_level = $request->expertiseLevel;
         $createdWorkoutLog->save();
+        $findWorkoutLog = WorkoutLog::find($createdWorkoutLog->id);
+        return response()->json(["newWorkoutLog"=>$findWorkoutLog]);
     }
 }
