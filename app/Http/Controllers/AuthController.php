@@ -10,7 +10,6 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Collection;
 
 class AuthController extends Controller
 {
@@ -43,9 +42,9 @@ class AuthController extends Controller
         if(Auth::attempt($credentials)) {
 
             $responseTokens = $this->getTokens($request->email,$request->password);
-            return response()->json($responseTokens);
-//            $cookie = cookie('jid', $responseTokens->refresh_token, 45000);
-//            return $this->RespondWithToken($responseTokens,  $findUser->user_type,$findUser,$cookie);
+            $cookie = cookie('jid', $responseTokens->refresh_token, 45000);
+            return $this->RespondWithToken($responseTokens,  $findUser->user_type,$findUser,$cookie);
+
         }else {
             return response()->json(['message' => 'Unauthorized'], 401);
         }
@@ -74,9 +73,7 @@ class AuthController extends Controller
             $res = app()->handle($req);
             $responseTokens = json_decode($res->getContent());
 
-//            $responseTokens=collect(["refresh_token"=>123,"token_type"=>'sdsds',"access_token"=>123232,'expires_in'=>1000]);
             $cookie = cookie('jid', $responseTokens->refresh_token, 45000);
-
             return response()->json([
                 'accessToken' =>  $responseTokens->access_token,
                 'tokenType' =>  $responseTokens->token_type,
@@ -95,7 +92,7 @@ class AuthController extends Controller
      */
     private function getTokens(String $userEmail,String $userPassword)
     {
-//        $appUrl = env('APP_URL','https://backupfsa.herokuapp.com');
+        $appUrl = env('APP_URL','https://backupfsa.herokuapp.com');
         try {
             $req = Request::create('https://backupfsa.herokuapp.com/oauth/token', 'POST', [
                 'grant_type' => 'password',
