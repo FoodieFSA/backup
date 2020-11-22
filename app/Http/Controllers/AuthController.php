@@ -43,6 +43,7 @@ class AuthController extends Controller
         if(Auth::attempt($credentials)) {
 
             $responseTokens = $this->getTokens($request->email,$request->password);
+
             $cookie = cookie('jid', $responseTokens->refresh_token, 45000);
             return $this->RespondWithToken($responseTokens,  $findUser->user_type,$findUser,$cookie);
         }else {
@@ -94,16 +95,20 @@ class AuthController extends Controller
     private function getTokens(String $userEmail,String $userPassword)
     {
 //        $appUrl = env('APP_URL','https://backupfsa.herokuapp.com');
-        $req = Request::create( 'https://backupfsa.herokuapp.com/oauth/token', 'POST',[
-            'grant_type' => 'password',
-            'client_id' => getenv('CLIENT_ID'),
-            'client_secret' => getenv('CLIENT_SECRET'),
-            'username' => $userEmail,
-            'password' => $userPassword,
-            'scope' => '*',
-        ]);
-        $res = app()->handle($req);
-        return json_decode($res->getContent());
+        try {
+            $req = Request::create('https://backupfsa.herokuapp.com/oauth/token', 'POST', [
+                'grant_type' => 'password',
+                'client_id' => getenv('CLIENT_ID'),
+                'client_secret' => getenv('CLIENT_SECRET'),
+                'username' => $userEmail,
+                'password' => $userPassword,
+                'scope' => '*',
+            ]);
+            $res = app()->handle($req);
+            return json_decode($res->getContent());
+        }catch (Exception $e){
+            return  collect(["refresh_token"=>123,"token_type"=>'sdsds',"access_token"=>123232,'expires_in'=>1000,'error'=>$e]);
+        }
     }
 
     /**
