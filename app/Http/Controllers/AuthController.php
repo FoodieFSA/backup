@@ -89,11 +89,13 @@ class AuthController extends Controller
     /**
      * @param String $userEmail
      * @param String $userPassword
+     * TODO the call for oauth(freshToken and accessToken) call be split into difference class
      */
     private function getTokens(String $userEmail,String $userPassword)
     {
-        $appUrl = env('APP_URL','https://backupfsa.herokuapp.com');
+
         try {
+            $appUrl = env('APP_URL','https://backupfsa.herokuapp.com');
             $req = Request::create($appUrl.'/oauth/token', 'POST', [
                 'grant_type' => 'password',
                 'client_id' => getenv('CLIENT_ID'),
@@ -105,7 +107,7 @@ class AuthController extends Controller
             $res = app()->handle($req);
             return json_decode($res->getContent());
         }catch (Exception $e){
-            return  collect(["refresh_token"=>123,"token_type"=>'sdsds',"access_token"=>123232,'expires_in'=>1000,'error'=>$e]);
+            return  json_decode($e);
         }
     }
 
