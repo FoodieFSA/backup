@@ -27,7 +27,7 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
         Passport::routes();
-        Passport::loadKeysFrom('/secret-keys/oauth');
+//        Passport::loadKeysFrom('/secret-keys/oauth');
 //        Passport::enableImplicitGrant();
         //for access token expiration date
         Passport::tokensExpireIn(Carbon::now()->addMinutes(15));
