@@ -20,7 +20,7 @@ return [
     'allowed_methods' => ['*'],
 
     //TODO need to change the domain after deployment
-    'allowed_origins' => [env('ALLOWED_ORIGINS','https://keekup-5ad5b.firebaseapp.com')],
+    'allowed_origins' => [env('ALLOWED_ORIGINS','https://keepupfsa.herokuapp.com')],
 
     'allowed_origins_patterns' => [],
 

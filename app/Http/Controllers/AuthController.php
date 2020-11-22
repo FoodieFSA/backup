@@ -42,7 +42,7 @@ class AuthController extends Controller
         if(Auth::attempt($credentials)) {
 
             $responseTokens = $this->getTokens($request->email,$request->password);
-            $cookie = cookie('jid', $responseTokens->refresh_token, 45000);
+            $cookie = cookie('jid', $responseTokens->refresh_token, 45000,null,'.ngrok.io');
             return $this->RespondWithToken($responseTokens,  $findUser->user_type,$findUser,$cookie);
 
         }else {

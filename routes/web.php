@@ -14,5 +14,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return redirect('https://keekup-5ad5b.web.app/');
+    return redirect('https://keekup-5ad5b.firebaseapp.com');
 });
