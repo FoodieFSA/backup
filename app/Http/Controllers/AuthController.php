@@ -43,9 +43,9 @@ class AuthController extends Controller
         if(Auth::attempt($credentials)) {
 
             $responseTokens = $this->getTokens($request->email,$request->password);
-
-            $cookie = cookie('jid', $responseTokens->refresh_token, 45000);
-            return $this->RespondWithToken($responseTokens,  $findUser->user_type,$findUser,$cookie);
+            return response()->json($responseTokens);
+//            $cookie = cookie('jid', $responseTokens->refresh_token, 45000);
+//            return $this->RespondWithToken($responseTokens,  $findUser->user_type,$findUser,$cookie);
         }else {
             return response()->json(['message' => 'Unauthorized'], 401);
         }
@@ -73,6 +73,7 @@ class AuthController extends Controller
 
             $res = app()->handle($req);
             $responseTokens = json_decode($res->getContent());
+
 //            $responseTokens=collect(["refresh_token"=>123,"token_type"=>'sdsds',"access_token"=>123232,'expires_in'=>1000]);
             $cookie = cookie('jid', $responseTokens->refresh_token, 45000);
 
