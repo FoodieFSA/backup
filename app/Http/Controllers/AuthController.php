@@ -10,7 +10,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\DB;
-
+use Illuminate\Support\Collection;
 
 class AuthController extends Controller
 {
@@ -72,7 +72,7 @@ class AuthController extends Controller
 //
 //            $res = app()->handle($req);
 //            $responseTokens = json_decode($res->getContent());
-            $responseTokens=["refresh_token"=>123,"token_type"=>'sdsds',"access_token"=>123232,'expires_in'=>1000];
+            $responseTokens=collect(["refresh_token"=>123,"token_type"=>'sdsds',"access_token"=>123232,'expires_in'=>1000]);
             $cookie = cookie('jid', $responseTokens->refresh_token, 45000);
 
             return response()->json([
@@ -160,7 +160,7 @@ class AuthController extends Controller
         Auth::attempt(['email' => $request->email, 'password' =>$request->password]);
 //        $responseTokens = $this->getTokens($userEmail,  $request->password);
         //testing
-        $responseTokens=["refresh_token"=>123,"token_type"=>'sdsds',"access_token"=>123232,'expires_in'=>1000];
+        $responseTokens=collect(["refresh_token"=>123,"token_type"=>'sdsds',"access_token"=>123232,'expires_in'=>1000]);
         $cookie = cookie('jid', $responseTokens->refresh_token, 45000);
         return $this->RespondWithToken($responseTokens, $createdUser->user_type,$createdUser, $cookie);
     }
