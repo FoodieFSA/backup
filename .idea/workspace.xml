@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1c80b1e9-3389-46d7-87ee-038abd240b28" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/testController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/testController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -225,7 +226,7 @@
       <workItem from="1605972677068" duration="13620000" />
       <workItem from="1605999122124" duration="8814000" />
       <workItem from="1606009560774" duration="1183000" />
-      <workItem from="1606057997373" duration="1575000" />
+      <workItem from="1606057997373" duration="3342000" />
     </task>
     <servers />
   </component>
@@ -241,10 +242,11 @@
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
     <state x="627" y="229" width="655" height="619" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/1920.0.1920.1080/0.27.1920.1053@0.27.1920.1053" timestamp="1605987851545" />
-    <state x="627" y="240" width="655" height="598" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1602174433891">
-      <screen x="0" y="27" width="1920" height="1053" />
+    <state x="2547" y="218" width="655" height="598" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1606059801990">
+      <screen x="1920" y="0" width="1920" height="1080" />
     </state>
     <state x="627" y="240" width="655" height="598" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/1920.0.1920.1080/0.27.1920.1053@0.27.1920.1053" timestamp="1602174433891" />
+    <state x="2547" y="218" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1606059801990" />
     <state x="2554" y="453" width="641" height="199" key="ComposerInitDialogKey" timestamp="1605574729448">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
@@ -305,6 +307,10 @@
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
     <state x="604" y="70" width="702" height="938" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/1920.0.1920.1080/0.27.1920.1053@0.27.1920.1053" timestamp="1605984271831" />
+    <state x="2500" y="215" width="759" height="674" key="find.popup" timestamp="1606061369002">
+      <screen x="1920" y="0" width="1920" height="1080" />
+    </state>
+    <state x="2500" y="215" width="759" height="674" key="find.popup/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1606061369002" />
     <state x="540" y="243" key="run.anything.popup" timestamp="1605645039919">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
