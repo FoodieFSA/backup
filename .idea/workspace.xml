@@ -1,11 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:heroku" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="1c80b1e9-3389-46d7-87ee-038abd240b28" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/resources/js/.babelrc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/AuthController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/AuthController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/session.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/session.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/bootstrap.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/bootstrap.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/welcome.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/welcome.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webpack.mix.js" beforeDir="false" afterPath="$PROJECT_DIR$/webpack.mix.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -154,11 +185,22 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="dart.analysis.tool.window.visible" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/js" />
     <property name="nodejs_package_manager_path" value="npm" />
+    <property name="prettierjs.PrettierConfiguration.Package" value="$PROJECT_DIR$/node_modules/prettier" />
+    <property name="standardjs.codestyle.accepted" value="true" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
-  <component name="RunManager" selected="JavaScript Debug.127.0.0.1:8000">
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/resources/js" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Node.js.app.js">
     <configuration name="127.0.0.1:8000" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://127.0.0.1:8000">
+      <method v="2" />
+    </configuration>
+    <configuration name="app.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/public/js/app.js" working-dir="$PROJECT_DIR$/public/js">
       <method v="2" />
     </configuration>
     <configuration name="phpunit.xml" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
@@ -177,6 +219,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Node.js.app.js" />
         <item itemvalue="JavaScript Debug.127.0.0.1:8000" />
         <item itemvalue="npm.start-server" />
       </list>
@@ -229,11 +272,26 @@
       <workItem from="1605999122124" duration="8814000" />
       <workItem from="1606009560774" duration="1183000" />
       <workItem from="1606057997373" duration="15110000" />
+      <workItem from="1606159185434" duration="6400000" />
+      <workItem from="1606165712499" duration="2155000" />
+      <workItem from="1606173825718" duration="410000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
     <state x="2526" y="328" width="698" height="449" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1602785046811">
@@ -253,26 +311,26 @@
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
     <state x="2554" y="453" width="641" height="199" key="ComposerInitDialogKey/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1605574729448" />
-    <state width="1864" height="327" key="GridCell.Tab.0.bottom" timestamp="1605583724874">
-      <screen x="0" y="27" width="1920" height="1053" />
+    <state width="1892" height="263" key="GridCell.Tab.0.bottom" timestamp="1606165617356">
+      <screen x="1920" y="0" width="1920" height="1080" />
     </state>
-    <state width="1864" height="327" key="GridCell.Tab.0.bottom/1920.0.1920.1080/0.27.1920.1053@0.27.1920.1053" timestamp="1605583724874" />
-    <state width="1864" height="254" key="GridCell.Tab.0.bottom/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1605579639664" />
-    <state width="1864" height="327" key="GridCell.Tab.0.center" timestamp="1605583724874">
-      <screen x="0" y="27" width="1920" height="1053" />
+    <state width="1892" height="263" key="GridCell.Tab.0.bottom/1920.0.1920.1080/0.27.1920.1053@0.27.1920.1053" timestamp="1606160964102" />
+    <state width="1892" height="263" key="GridCell.Tab.0.bottom/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1606165617356" />
+    <state width="1892" height="263" key="GridCell.Tab.0.center" timestamp="1606165617356">
+      <screen x="1920" y="0" width="1920" height="1080" />
     </state>
-    <state width="1864" height="327" key="GridCell.Tab.0.center/1920.0.1920.1080/0.27.1920.1053@0.27.1920.1053" timestamp="1605583724874" />
-    <state width="1864" height="254" key="GridCell.Tab.0.center/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1605579639664" />
-    <state width="1864" height="327" key="GridCell.Tab.0.left" timestamp="1605583724874">
-      <screen x="0" y="27" width="1920" height="1053" />
+    <state width="1892" height="263" key="GridCell.Tab.0.center/1920.0.1920.1080/0.27.1920.1053@0.27.1920.1053" timestamp="1606160964102" />
+    <state width="1892" height="263" key="GridCell.Tab.0.center/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1606165617356" />
+    <state width="1892" height="263" key="GridCell.Tab.0.left" timestamp="1606165617356">
+      <screen x="1920" y="0" width="1920" height="1080" />
     </state>
-    <state width="1864" height="327" key="GridCell.Tab.0.left/1920.0.1920.1080/0.27.1920.1053@0.27.1920.1053" timestamp="1605583724874" />
-    <state width="1864" height="254" key="GridCell.Tab.0.left/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1605579639663" />
-    <state width="1864" height="327" key="GridCell.Tab.0.right" timestamp="1605583724874">
-      <screen x="0" y="27" width="1920" height="1053" />
+    <state width="1892" height="263" key="GridCell.Tab.0.left/1920.0.1920.1080/0.27.1920.1053@0.27.1920.1053" timestamp="1606160964102" />
+    <state width="1892" height="263" key="GridCell.Tab.0.left/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1606165617356" />
+    <state width="1892" height="263" key="GridCell.Tab.0.right" timestamp="1606165617356">
+      <screen x="1920" y="0" width="1920" height="1080" />
     </state>
-    <state width="1864" height="327" key="GridCell.Tab.0.right/1920.0.1920.1080/0.27.1920.1053@0.27.1920.1053" timestamp="1605583724874" />
-    <state width="1864" height="254" key="GridCell.Tab.0.right/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1605579639664" />
+    <state width="1892" height="263" key="GridCell.Tab.0.right/1920.0.1920.1080/0.27.1920.1053@0.27.1920.1053" timestamp="1606160964102" />
+    <state width="1892" height="263" key="GridCell.Tab.0.right/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1606165617356" />
     <state width="1864" height="327" key="GridCell.Tab.1.bottom" timestamp="1605583724874">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
@@ -309,13 +367,24 @@
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
     <state x="604" y="70" width="702" height="938" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/1920.0.1920.1080/0.27.1920.1053@0.27.1920.1053" timestamp="1605984271831" />
-    <state x="2500" y="215" width="759" height="674" key="find.popup" timestamp="1606061786857">
-      <screen x="1920" y="0" width="1920" height="1080" />
+    <state x="580" y="237" width="759" height="674" key="find.popup" timestamp="1606162413476">
+      <screen x="0" y="27" width="1920" height="1053" />
     </state>
+    <state x="580" y="237" width="759" height="674" key="find.popup/1920.0.1920.1080/0.27.1920.1053@0.27.1920.1053" timestamp="1606162413476" />
     <state x="2500" y="215" width="759" height="674" key="find.popup/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1606061786857" />
     <state x="540" y="243" key="run.anything.popup" timestamp="1605645039919">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
     <state x="540" y="243" key="run.anything.popup/1920.0.1920.1080/0.27.1920.1053@0.27.1920.1053" timestamp="1605645039919" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/resources/js/components/Example.js</url>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
