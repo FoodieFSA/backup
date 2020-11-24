@@ -143,3 +143,11 @@ body {
     background-color: #4169e1;
     color: white;
 }
+
+/*for links*/
+.navLink {
+    color: blue;
+}
+.navLink:hover {
+    text-decoration: underline;
+}
