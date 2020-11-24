@@ -5,7 +5,7 @@ import { auth } from '../store'
 import { connect } from 'react-redux'
 import { makeStyles, Avatar, CssBaseline, Typography, Container, Grid } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Link from '@material-ui/core/Link'
+import { Link } from 'react-router-dom'
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -78,7 +78,7 @@ const Login = ({ loginUser, error, history }) => {
                 name="password"
               />
               <Grid item space={5}>
-                <Link href="#" variant="body2">
+                <Link to="/signup" className={'navLink'} >
                   {'Don\'t have an account? Sign Up'}
                 </Link>
               </Grid>

@@ -3,8 +3,33 @@ import BaseForm from '../Components/BaseForm'
 import AppTextField from '../Components/AppTextField'
 import { auth } from '../store'
 import { connect } from 'react-redux'
+import { makeStyles, Avatar, CssBaseline, Typography, Container, Grid } from '@material-ui/core';
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import { Link } from 'react-router-dom'
+
+const useStyles = makeStyles((theme) => ({
+  paper: {
+    marginTop: theme.spacing(8),
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    minHeight: '75vh'
+  },
+  avatar: {
+    margin: theme.spacing(1),
+    backgroundColor: theme.palette.secondary.main
+  },
+  form: {
+    width: '100%', // Fix IE 11 issue.
+    marginTop: theme.spacing(3)
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 2)
+  }
+}));
 
 const SignUp = ({ registerUser, history, error }) => {
+  const classes = useStyles();
   const ValidationSchema = Yup.object({
     firstName: Yup.string()
       .max(15, 'Must be 15 characters or less')
@@ -27,49 +52,72 @@ const SignUp = ({ registerUser, history, error }) => {
   const finalCommand = (id) => history.push('/')
 
   return (
-    <div className="form-page">
-      <div className="form-title">Create an account</div>
-      <span style={{ color: 'red' }}>{error}</span>
-      <BaseForm
-        initialValues={{ firstName: '', lastName: '', email: '', password: '' }}
-        validationSchema={ValidationSchema}
-        fastValidation
-        externalApi={{
-          insertDocument: registerUser
-        }}
-        finalCommand={finalCommand}
-        buttonText="Sign Up"
-      >
-        {(formProps) => (
-          <>
-            <AppTextField
-              {...formProps}
-              label="First Name"
-              type="text"
-              name="firstName"
-            />
-            <AppTextField
-              {...formProps}
-              label="Last Name"
-              type="text"
-              name="lastName"
-            />
-            <AppTextField
-              {...formProps}
-              label="Email"
-              type="email"
-              name="email"
-            />
-            <AppTextField
-              {...formProps}
-              label="Password"
-              type="password"
-              name="password"
-            />
-          </>
-        )}
-      </BaseForm>
-    </div>
+    <Container component="main" maxWidth="xs">
+      <CssBaseline />
+      <div className={classes.paper}>
+        <Avatar className={classes.avatar}>
+          <LockOutlinedIcon />
+        </Avatar>
+        <Typography component="h1" variant="h5">
+                  Sign up
+        </Typography>
+
+        <span style={{ color: 'red' }}>{error}</span>
+        <BaseForm
+          initialValues={{ firstName: '', lastName: '', email: '', password: '' }}
+          validationSchema={ValidationSchema}
+          fastValidation
+          externalApi={{
+            insertDocument: registerUser
+          }}
+          finalCommand={finalCommand}
+          buttonText="Sign Up"
+        >
+          {(formProps) => (
+            <>
+              <Grid container spacing={2}>
+                <Grid item xs={12} sm={6}>
+                  <AppTextField
+                    {...formProps}
+                    label="First Name"
+                    type="text"
+                    name="firstName"
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <AppTextField
+                    {...formProps}
+                    label="Last Name"
+                    type="text"
+                    name="lastName"
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <AppTextField
+                    {...formProps}
+                    label="Email"
+                    type="email"
+                    name="email"
+                  /></Grid>
+                <Grid item xs={12}>
+                  <AppTextField
+                    {...formProps}
+                    label="Password"
+                    type="password"
+                    name="password"
+                  />
+                </Grid>
+                <Grid item xs>
+                  <Link to="/login" className={'navLink'} >
+                      Already have an account? Sign in
+                  </Link>
+                </Grid>
+              </Grid>
+            </>
+          )}
+        </BaseForm>
+      </div>
+    </Container>
   )
 }
 const mapState = (state) => {
