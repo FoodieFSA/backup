@@ -5,7 +5,7 @@ import { store, refreshUserToken } from './store'
 import history from './history'
 
 const serverUrl = process.env.NODE_ENV === 'development' ? 'http://localhost:8000/api/' : 'https://backupfsa.herokuapp.com/api/'
-// const serverUrl='sds'
+console.log(process.env.NODE_ENV)
 const api = axios.create({
   baseURL: serverUrl
 })
