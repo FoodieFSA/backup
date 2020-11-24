@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Button, makeStyles, Modal, CircularProgress } from '@material-ui/core'
+import { makeStyles, Modal, CircularProgress } from '@material-ui/core'
 import { isClear, HandleError } from './index'
 import { Formik } from 'formik'
 import _ from 'lodash'
@@ -150,15 +150,15 @@ export default (props) => {
           {(formProps) => (
             <form className="form-container" autoComplete="off">
               {props.children(formProps)}
-              <Button
-                variant="contained"
-                color="primary"
-                className={classes.button}
-                type="submit"
-                onClick={formProps.handleSubmit}
-              >
-                {props.buttonText}
-              </Button>
+              {/* <Button */}
+              {/*  variant="contained" */}
+              {/*  color="primary" */}
+              {/*  className={classes.button} */}
+              {/*  type="submit" */}
+              {/*  onClick={formProps.handleSubmit} */}
+              {/* > */}
+              {/*  {props.buttonText} */}
+              {/* </Button> */}
             </form>
           )}
         </Formik>

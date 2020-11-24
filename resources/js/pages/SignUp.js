@@ -3,7 +3,7 @@ import BaseForm from '../Components/BaseForm'
 import AppTextField from '../Components/AppTextField'
 import { auth } from '../store'
 import { connect } from 'react-redux'
-import { makeStyles, Avatar, CssBaseline, Typography, Container, Grid } from '@material-ui/core';
+import { makeStyles, Avatar, CssBaseline, Typography, Container, Grid, Button } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { Link } from 'react-router-dom'
 
@@ -25,6 +25,10 @@ const useStyles = makeStyles((theme) => ({
   },
   submit: {
     margin: theme.spacing(3, 0, 2)
+  },
+  button: {
+    margin: '10px',
+    fontWeight: 'bolder'
   }
 }));
 
@@ -71,7 +75,6 @@ const SignUp = ({ registerUser, history, error }) => {
             insertDocument: registerUser
           }}
           finalCommand={finalCommand}
-          buttonText="Sign Up"
         >
           {(formProps) => (
             <>
@@ -107,11 +110,20 @@ const SignUp = ({ registerUser, history, error }) => {
                     name="password"
                   />
                 </Grid>
-                <Grid item xs>
-                  <Link to="/login" className={'navLink'} >
+              </Grid>
+              <Button
+                variant="contained"
+                color="primary"
+                className={classes.button}
+                type="submit"
+                onClick={formProps.handleSubmit}
+              >
+                     Sign Up
+              </Button>
+              <Grid item xs space={5}>
+                <Link to="/login" className={'navLink'} >
                       Already have an account? Sign in
-                  </Link>
-                </Grid>
+                </Link>
               </Grid>
             </>
           )}
