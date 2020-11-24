@@ -61,7 +61,7 @@ class AuthController extends Controller
         }
 
         try {
-            $appUrl = env('APP_URL','https://backupfsa.herokuapp.com');
+            $appUrl = env('APP_URL','https://keepupfsa.herokuapp.com');
             $req = Request::create( $appUrl.'/oauth/token', 'POST', [
                 'grant_type' => 'refresh_token',
                 'refresh_token' => Cookie::get('jid'),
@@ -95,7 +95,7 @@ class AuthController extends Controller
     {
 
         try {
-            $appUrl = env('APP_URL','https://backupfsa.herokuapp.com');
+            $appUrl = env('APP_URL','https://keepupfsa.herokuapp.com');
             $req = Request::create($appUrl.'/oauth/token', 'POST', [
                 'grant_type' => 'password',
                 'client_id' => getenv('CLIENT_ID'),
