@@ -5,7 +5,7 @@ import { store, refreshUserToken } from './store'
 import history from './history'
 
 const serverUrl = process.env.NODE_ENV === 'development' ? 'http://localhost:8000/api/' : 'https://keepupfsa.herokuapp.com/api/'
-console.log(process.env.NODE_ENV)
+
 const api = axios.create({
   baseURL: serverUrl
 })
