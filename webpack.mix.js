@@ -12,16 +12,15 @@ const mix = require('laravel-mix');
  */
 
 mix.webpackConfig({
-    module: {
-        rules: [
-            {
-                test: /\.jsx?$/,
-                exclude: /node_modules/,
-                loader: 'babel-loader'
-            },
-        ]
-    }
+  module: {
+    rules: [
+      {
+        test: /\.jsx?$/,
+        exclude: /node_modules/,
+        loader: 'babel-loader'
+      }
+    ]
+  }
 });
 mix.react('resources/js/app.js', 'public/js')
-    .sass('resources/sass/app.scss', 'public/css');
-
+  .sass('resources/sass/app.scss', 'public/css');

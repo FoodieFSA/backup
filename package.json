@@ -1,7 +1,13 @@
 {
+    "name": "keepup",
+    "version": "0.1.0",
+    "description": "Start keep track of your workout!",
     "private": true,
+    "author": "keepup team",
     "scripts": {
         "start-dev": "php artisan serve & npm run watch",
+        "lint": "eslint ./  --ignore-path .eslintignore",
+        "lint-fix": "npm run lint -- --fix",
         "dev": "npm run development",
         "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
         "watch": "npm run development -- --watch",
@@ -9,6 +15,19 @@
         "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --disable-host-check --config=node_modules/laravel-mix/setup/webpack.config.js",
         "prod": "npm run production",
         "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
+    },
+    "husky": {
+        "hooks": {
+            "pre-commit": "lint-staged"
+        }
+    },
+    "lint-staged": {
+        "*.{js,jsx}": [
+            "npm run lint-fix"
+        ],
+        "*.{css,scss,json,md}": [
+            "prettier --write"
+        ]
     },
     "dependencies": {
         "@material-ui/core": "^4.11.0",
