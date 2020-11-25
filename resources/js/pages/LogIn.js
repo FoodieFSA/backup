@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    minHeight: '75vh'
+    minHeight: '79vh'
   },
   button: {
     margin: '10px',
@@ -56,7 +56,6 @@ const Login = ({ loginUser, error, history }) => {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <span style={{ color: 'red' }}>{error}</span>
         <BaseForm
           initialValues={{ email: '', password: '' }}
           validationSchema={ValidationSchema}
@@ -101,7 +100,7 @@ const Login = ({ loginUser, error, history }) => {
     </Container>
   )
 }
-const mapState = (state) => ({ error: state.user.error })
+const mapState = (state) => ({ })
 const mapDispatch = (dispatch) => {
   return {
     loginUser: (payload) => dispatch(auth(payload, 'loginUser'))

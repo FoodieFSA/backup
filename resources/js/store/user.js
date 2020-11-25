@@ -33,11 +33,8 @@ export const auth = (payload, method) => async (dispatch) => {
   let res
 
   try {
-    res = await Api.post(`/auth/${method}`, payload, {
-      withCredentials: true
-    })
+    res = await Api.post(`/auth/${method}`, payload, { withCredentials: true })
   } catch (authError) {
-    dispatch(getUser({ error: authError.response.data.error }))
     return throw new Error(authError.response.data.error)
   }
   try {

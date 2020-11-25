@@ -53,7 +53,7 @@ const AppBarCollapse = ({ classes, isLoggedIn, logout }) => {
     <div className={classes.root}>
       <ButtonAppBarCollapse>
         {/* for the buttons required user login,place inside */}
-        { !isLoggedIn
+        { isLoggedIn
           ? <div className='navbarLink' >
             <Link to="/workout-log">
               <StyledMenuItem>

@@ -31,7 +31,7 @@ export default (props) => {
   const [state, setState] = useState({})
   const classes = useStyles()
   const [loading, setLoading] = useState(false)
-
+  const [error, setError] = useState('')
   const handleSubmit = (useValue, formActions) => {
     setLoading(true)
     const finalRedirect = (id) => {
@@ -55,6 +55,8 @@ export default (props) => {
         })
         .catch((error) => {
           HandleError(error)
+          setError(error.message)
+          setLoading(false)
           formActions.setSubmitting(false)
         })
     } else if (dataMode === 'update') {
@@ -66,6 +68,8 @@ export default (props) => {
         })
         .catch((error) => {
           HandleError(error)
+          setError(error.message)
+          setLoading(false)
           formActions.setSubmitting(false)
         })
     }
@@ -87,6 +91,7 @@ export default (props) => {
     }
     setState(data)
   }
+
   const SetInsertMode = (data) => {
     data.precursory = _.cloneDeep(data)
     data.dataMode = 'insert'
@@ -149,6 +154,7 @@ export default (props) => {
         >
           {(formProps) => (
             <form className="form-container" autoComplete="off">
+              <span style={{ color: 'red' }}>{error}</span>
               {props.children(formProps)}
               {/* <Button */}
               {/*  variant="contained" */}
@@ -169,7 +175,7 @@ export default (props) => {
           aria-describedby="simple-modal-description"
           className={classes.loadingPaper}
         >
-          <CircularProgress color="secondary" style={{ padding: '20px', boarderWidth: '0px', borderStyle: 'none' }}/>
+          <CircularProgress color="secondary" size ={100} style={{ padding: '20px', boarderWidth: '0px', borderStyle: 'none' }}/>
         </Modal>
       </>
     )
