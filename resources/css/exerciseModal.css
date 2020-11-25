@@ -1,0 +1,21 @@
+.modal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.paper {
+    background-color: white;
+    padding: 20px;
+    height: 50vh;
+    width: 30vh;
+    overflow: auto;
+}
+
+.scroll {
+    /* height: 100px; */
+    /* width: 100px; */
+    /* width: 20vh; */
+    /* overflow-y: auto; */
+    overflow: auto;
+}
