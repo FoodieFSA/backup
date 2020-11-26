@@ -14,7 +14,6 @@ const AppTextField = (props) => {
         id={props.name}
         variant="outlined"
         margin="normal"
-        required
         fullWidth
         label={props.label}
         type={props.type}

@@ -12,7 +12,7 @@ function Router ({ isLoggedIn, location }) {
       {/* {isLoggedIn && */}
       {/* <Switch> */}
       <Route path="/user-profile-update" component={UserProfileForm}/>
-      <Route path="/user-profile" component={UserProfile} />
+      <Route exact path="/user-profile" component={UserProfile} />
       <Route path="/workout-log" component={WorkoutLog} />
       {/* </Switch> */}
       {/* } */}

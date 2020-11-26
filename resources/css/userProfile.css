@@ -1,0 +1,29 @@
+h3 {
+    /*text-transform:capitalize*/
+    text-align: left;
+    font-size: 20px;
+    /*align-self: center;*/
+}
+
+#user-profile-page {
+    display: flex;
+    flex-direction: row;
+    min-height: 79vh;
+    padding-top: 30px;
+    justify-content: center;
+
+    /*align-items: center;*/
+    /* background-image: url('http://www.maurilioamorim.com/wp-content/uploads/2011/05/fitness.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover; */
+}
+#user-avatar {
+    height: 200px;
+    width: 200px;
+    border-radius: 50%;
+    margin: 0 50px auto 50px;
+}
+#user-info {
+    margin: 0 0 auto 50px;
+}

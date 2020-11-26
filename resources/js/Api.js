@@ -58,7 +58,7 @@ api.interceptors.response.use(response => response,
         return Promise.reject(error);
       }
 
-      axios.post(`${serverUrl}/auth/refresh_token`, null, { withCredentials: true }).then(response => {
+      axios.post(`${serverUrl}auth/refresh_token`, null, { withCredentials: true }).then(response => {
         const tokenInfo = response.data
         if (isClear(tokenInfo.accessToken)) {
           history.push('/login')
