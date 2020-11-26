@@ -32,7 +32,9 @@ export default (props) => {
   const classes = useStyles()
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+
   const handleSubmit = (useValue, formActions) => {
+    console.log('updadad clikedesdsdsdsdsdde', formActions)
     setLoading(true)
     const finalRedirect = (id) => {
       if (typeof props.finalCommand === 'function') {
@@ -63,6 +65,7 @@ export default (props) => {
       props.externalApi
         .updateDocument(useValue)
         .then((response) => {
+          console.log(response, 'respodinggggggggg')
           formActions.setSubmitting(false)
           finalRedirect(response.data.id)
         })
@@ -113,6 +116,7 @@ export default (props) => {
             data.dataMode = 'update'
             data = _.cloneDeepWith(data, NullToEmpty)
             // console.log('afterClone', data)
+            console.log(data, 'sdsdsddsdsd')
             ModifyInfo(data)
           }
         )

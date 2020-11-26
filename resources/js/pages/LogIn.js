@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const Login = ({ loginUser, error, history }) => {
+const Login = ({ loginUser, history }) => {
   const classes = useStyles();
   const ValidationSchema = Yup.object({
     email: Yup.string()

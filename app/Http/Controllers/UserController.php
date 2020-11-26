@@ -23,7 +23,15 @@ class UserController extends AbsoluteController
         ]);
 
         $actualUser = User::find($request->id);
-        return response()->json(["msg"=>$actualUser]);
+        $actualUser->first_name=$request->first_name;
+        $actualUser->last_name=$request->last_name;
+        $actualUser->user_gender =$request->user_gender;
+        $actualUser->user_weight=$request->user_weight;
+        $actualUser->user_height=$request->user_height;
+
+        $actualUser->save();
+
+        return response()->json(["userData"=>$actualUser,'data'=>$request]);
     }
     /**
      * @param Request $request
@@ -31,11 +39,11 @@ class UserController extends AbsoluteController
      */
     public function getUser(Request $request): JsonResponse
     {
-//        $request->validate([
-//            'id' => 'required',
-//        ]);
+       $request->validate([
+           'id' => 'required',
+       ]);
 
-        $findUser = User::find(1);
+        $findUser = User::find($request->id);
         if(!$findUser){
             return response()->json(["error"=>'User does not exist'],401);
         }

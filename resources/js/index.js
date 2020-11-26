@@ -1,5 +1,5 @@
 import ReactDOM from 'react-dom'
-import './Styles/index.css'
+import '../css/index.css'
 import MainApp from './Main'
 import * as serviceWorker from './serviceWorker'
 import { Router } from 'react-router-dom'

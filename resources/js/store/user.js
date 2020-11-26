@@ -1,11 +1,14 @@
 import Api from '../Api'
 import history from '../history'
+// import produce from 'immer'
+
 /**
  * ACTION TYPES
  */
 const GET_USER = 'GET_USER'
 const REMOVE_USER = 'REMOVE_USER'
 const REFRESH_TOKEN = ' REFRESH_TOKEN'
+const UPDATE_USER = 'UPDATE_USER'
 /**
  * INITIAL STATE
  */
@@ -16,6 +19,8 @@ const defaultUser = { }
  */
 const getUser = (user) => ({ type: GET_USER, user })
 const removeUser = () => ({ type: REMOVE_USER })
+const updateUser = (userData) => ({ type: UPDATE_USER, userData })
+
 export const refreshUserToken = (user) => ({ type: REFRESH_TOKEN, user })
 /**
  * THUNK CREATORS
@@ -59,6 +64,17 @@ export const logout = () => async (dispatch) => {
   })
 }
 
+export const updateUserThunk = (userPayload) => async (dispatch) => {
+  Api.put('user/updateUser', userPayload).then(response => {
+    console.log(response, 'Sdsdskdjskdjskdjsdk')
+    const { data } = response
+    console.log(data, 'SDSDsdsdsd daaaaaaaaaaaaaaaaaa')
+    dispatch(updateUser(data.userData))
+  }).catch(error => {
+    console.error(error)
+    alert('There is an error on updating,please try again!')
+  })
+}
 /**
  * REDUCER
  */
@@ -68,6 +84,8 @@ export default function (state = defaultUser, action) {
       return action.user
     case REMOVE_USER:
       return defaultUser
+    case UPDATE_USER:
+      return { ...state, userData: action.userData }
     case REFRESH_TOKEN:
       return action.user
     default:
