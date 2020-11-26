@@ -9,16 +9,17 @@ import {
   Container,
   Avatar,
   Typography,
-  makeStyles
+  makeStyles,
+  IconButton
 } from '@material-ui/core'
 import { connect } from 'react-redux'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 // import produce from 'immer'
 import api from '../Api'
-import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import history from '../history'
 import { updateUserThunk } from '../store'
-
+// import image from '../Assets/images/test.png'
+import PhotoCamera from '@material-ui/icons/PhotoCamera';
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -33,7 +34,19 @@ const useStyles = makeStyles((theme) => ({
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main
+    backgroundColor: theme.palette.secondary.main,
+    width: theme.spacing(20),
+    height: theme.spacing(20),
+    alignSelf: 'center'
+  },
+  cameraIcon: {
+    position: 'absolute',
+    backgroundColor: 'gray',
+    alignSelf: 'center',
+    marginLeft: '100px',
+    bottom: 0,
+    width: theme.spacing(3),
+    height: theme.spacing(3)
   },
   form: {
     width: '100%', // Fix IE 11 issue.
@@ -43,19 +56,35 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(3, 0, 2)
   }
 }));
-function UserProfileForm ({ userId, updateUser }) {
+function UserProfileForm ({ userId, updateUser, userData }) {
+  console.log(userData)
   const classes = useStyles();
-  const [state, setState] = useState({
-    first_name: '',
-    last_name: '',
-    user_gender: '',
-    user_dob: '',
-    user_height: '',
-    user_weight: ''
-  })
+  const [img, setImage] = useState(null);
+  const hiddenFileInput = useRef(null)
+  // https://www.pluralsight.com/guides/how-to-create-a-simple-form-submit-with-files?clickid=2nZQSxW6txyOT1NwUx0Mo38VUkEwEK2VsSM9xc0&irgwc=1&mpid=29332&aid=7010a000001xAKZAA2&utm_medium=digital_affiliate&utm_campaign=29332&utm_source=impactradius
+  const handleImageClick = event => {
+    hiddenFileInput.current.click();
+    // const formData = new FormData()
+    console.log(event.target.files[0])
+    // formData.append('image',event.target.files[0])
+    event.preventDefault();
+    const imageFile = event.target.files[0];
+    if (imageFile) {
+      const localImageUrl = URL.createObjectURL(imageFile);
+      const imageObject = new window.Image();
 
+      imageObject.onload = () => {
+        imageFile.width = imageObject.naturalWidth;
+        imageFile.height = imageObject.naturalHeight;
+        // input.onChange(imageFile);
+        URL.revokeObjectURL(imageFile);
+      };
+      imageObject.src = localImageUrl;
+      setImage(localImageUrl)
+    }
+  };
   const onStartTransform = (data) => {
-    setState(data)
+    // setState(data)
     return data
   }
   /*
@@ -86,14 +115,11 @@ function UserProfileForm ({ userId, updateUser }) {
   return (
     <Container component="main" maxWidth="xs">
       <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <AccountBoxIcon />
-        </Avatar>
         <Typography component="h1" variant="h5">
-                  Update Your Information
+              Update Your Information
         </Typography>
         <BaseForm
-          initialValues={state}
+          // initialValues={state}
           validationSchema={ValidationSchema}
           // fastValidation
           externalApi={{
@@ -107,6 +133,14 @@ function UserProfileForm ({ userId, updateUser }) {
           buttonText="Update Profile"
         >
           {(formProps) => (<>
+
+            <input type='file' id='file' ref={hiddenFileInput} value={formProps.values.socialAvatarUrl} onChange={(e) => handleImageClick(e)} style={{ display: 'none' }}/>
+            <div style={{ width: '100%', height: 'auto', position: 'relative', justifyContent: 'center', display: 'flex', alignItem: 'center' }}>
+              <Avatar className={classes.avatar} src={formProps.values.socialAvatarUrl || img}/>
+              <IconButton onClick={(e) => handleImageClick(e)} className={classes.cameraIcon} color="primary" aria-label="upload picture" component="span">
+                <PhotoCamera />
+              </IconButton>
+            </div>
             <AppTextField
               {...formProps}
               label="First Name"
@@ -179,7 +213,7 @@ function UserProfileForm ({ userId, updateUser }) {
   )
 }
 const mapState = (state) => {
-  return { userId: state.user.id }
+  return { userId: state.user.id, userData: state.user.userData }
 }
 const mapDispatch = (dispatch) => {
   return {

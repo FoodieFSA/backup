@@ -25,8 +25,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1c80b1e9-3389-46d7-87ee-038abd240b28" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/backup.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/backup.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/UserController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/Components/BaseForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/Components/BaseForm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/pages/UserProfile.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/pages/UserProfile.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/pages/UserProfileForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/pages/UserProfileForm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -164,6 +173,11 @@
       <path value="$PROJECT_DIR$/vendor/psr/http-factory" />
       <path value="$PROJECT_DIR$/vendor/laravel/passport" />
       <path value="$PROJECT_DIR$/vendor/laravel/ui" />
+      <path value="$PROJECT_DIR$/vendor/aws/aws-sdk-php" />
+      <path value="$PROJECT_DIR$/vendor/mtdowling/jmespath.php" />
+      <path value="$PROJECT_DIR$/vendor/league/flysystem-aws-s3-v3" />
+      <path value="$PROJECT_DIR$/vendor/psr/cache" />
+      <path value="$PROJECT_DIR$/vendor/league/flysystem-cached-adapter" />
     </include_path>
   </component>
   <component name="ProjectId" id="1ibCXSI2Optl3YLZLxTrsTOfR62" />
@@ -180,6 +194,7 @@
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="prettierjs.PrettierConfiguration.Package" value="$PROJECT_DIR$/node_modules/prettier" />
     <property name="standardjs.codestyle.accepted" value="true" />
+    <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
@@ -286,7 +301,8 @@
       <workItem from="1606231792036" duration="783000" />
       <workItem from="1606256292405" duration="740000" />
       <workItem from="1606331792206" duration="11074000" />
-      <workItem from="1606416545119" duration="2443000" />
+      <workItem from="1606416545119" duration="2675000" />
+      <workItem from="1606419848710" duration="2431000" />
     </task>
     <servers />
   </component>
@@ -384,10 +400,11 @@
     </state>
     <state x="580" y="237" width="759" height="674" key="find.popup/1920.0.1920.1080/0.27.1920.1053@0.27.1920.1053" timestamp="1606162413476" />
     <state x="2500" y="215" width="759" height="674" key="find.popup/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1606061786857" />
-    <state x="540" y="243" key="run.anything.popup" timestamp="1605645039919">
-      <screen x="0" y="27" width="1920" height="1053" />
+    <state x="2460" y="222" key="run.anything.popup" timestamp="1606423391557">
+      <screen x="1920" y="0" width="1920" height="1080" />
     </state>
     <state x="540" y="243" key="run.anything.popup/1920.0.1920.1080/0.27.1920.1053@0.27.1920.1053" timestamp="1605645039919" />
+    <state x="2460" y="222" key="run.anything.popup/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1606423391557" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

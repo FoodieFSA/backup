@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends AbsoluteController
 {
@@ -50,6 +51,15 @@ class UserController extends AbsoluteController
         return response()->json($findUser);
     }
 
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function uploadUserAvatar(Request $request): JsonResponse
+    {
 
+//        Storage::disk('s3')->put($fileContents);
+        return response()->json( $request);
+    }
 
 }
