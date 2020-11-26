@@ -24,12 +24,10 @@
     "lint-staged": {
         "*.{js,jsx}": [
             "npm run lint-fix",
-            "npm run prod",
-            "git add"
+            "npm run prod"
         ],
         "*.{css,scss,json,md}": [
-            "prettier --write",
-            "git add"
+            "prettier --write"
         ]
     },
     "dependencies": {
