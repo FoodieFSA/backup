@@ -65,15 +65,14 @@ export const logout = () => async (dispatch) => {
 }
 
 export const updateUserThunk = (userPayload) => async (dispatch) => {
-  Api.put('user/updateUser', userPayload).then(response => {
-    console.log(response, 'Sdsdskdjskdjskdjsdk')
-    const { data } = response
-    console.log(data, 'SDSDsdsdsd daaaaaaaaaaaaaaaaaa')
-    dispatch(updateUser(data.userData))
-  }).catch(error => {
-    console.error(error)
+  try {
+    const response = await Api.put('user/updateUser', userPayload)
+    dispatch(updateUser(response.data))
+    return response
+  } catch (error) {
     alert('There is an error on updating,please try again!')
-  })
+    return error
+  }
 }
 /**
  * REDUCER

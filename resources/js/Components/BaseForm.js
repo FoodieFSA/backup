@@ -34,7 +34,6 @@ export default (props) => {
   const [error, setError] = useState('')
 
   const handleSubmit = (useValue, formActions) => {
-    console.log('updadad clikedesdsdsdsdsdde', formActions)
     setLoading(true)
     const finalRedirect = (id) => {
       if (typeof props.finalCommand === 'function') {
@@ -65,7 +64,6 @@ export default (props) => {
       props.externalApi
         .updateDocument(useValue)
         .then((response) => {
-          console.log(response, 'respodinggggggggg')
           formActions.setSubmitting(false)
           finalRedirect(response.data.id)
         })

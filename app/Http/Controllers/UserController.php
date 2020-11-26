@@ -28,10 +28,10 @@ class UserController extends AbsoluteController
         $actualUser->user_gender =$request->user_gender;
         $actualUser->user_weight=$request->user_weight;
         $actualUser->user_height=$request->user_height;
-
+        $actualUser->user_dob=$request->user_dob;
         $actualUser->save();
 
-        return response()->json(["userData"=>$actualUser,'data'=>$request]);
+        return response()->json($actualUser);
     }
     /**
      * @param Request $request

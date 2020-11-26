@@ -106,75 +106,73 @@ function UserProfileForm ({ userId, updateUser }) {
           finalCommand={finalCommand}
           buttonText="Update Profile"
         >
-          {(formProps) => {
-            console.log(formProps)
-            return (<>
-              <AppTextField
-                {...formProps}
-                label="First Name"
-                type="text"
-                name="first_name"
-              />
-              <AppTextField
-                {...formProps}
-                label="Last Name"
-                type="text"
-                name="last_name"
-              />
-              <FormControl>
-                <InputLabel
-                  shrink
-                  id="demo-simple-select-placeholder-label-label"
-                >
-                Gender
-                </InputLabel>
-                <Select
-                  native
-                  label="Gender"
-                  name="user_gender"
-                  value={formProps.values.user_gender}
-                  onChange={formProps.handleChange}
-                // TODO: Need to change color from grey to white
-                >
-                  <option value="Male">Male</option>
-                  <option value="Female">Female</option>
-                  <option value="Prefer not to say">Prefer not to say</option>
-                </Select>
-              </FormControl>
-
-              <AppTextField
-              // not sure if we are doing age groups
-                {...formProps}
-                label="DOB"
-                type="date"
-                name="user_dob"
-              />
-              <AppTextField
-                {...formProps}
-                // height ranges? or options
-                label="Height (cm)"
-                type="height"
-                name="user_height"
-              />
-              <AppTextField
-                {...formProps}
-                // weight ranges or options?
-                label="Weight (lbs)"
-                type="weight"
-                name="user_weight"
-              />
-              <Button
-                variant="contained"
-                color="primary"
-                className={classes.button}
-                type="submit"
-                onClick={formProps.handleSubmit}
+          {(formProps) => (<>
+            <AppTextField
+              {...formProps}
+              label="First Name"
+              type="text"
+              name="first_name"
+            />
+            <AppTextField
+              {...formProps}
+              label="Last Name"
+              type="text"
+              name="last_name"
+            />
+            <FormControl>
+              <InputLabel
+                shrink
+                id="demo-simple-select-placeholder-label-label"
               >
+                Gender
+              </InputLabel>
+              <Select
+                native
+                label="Gender"
+                name="user_gender"
+                value={formProps.values.user_gender}
+                onChange={formProps.handleChange}
+                // TODO: Need to change color from grey to white
+              >
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Prefer not to say">Prefer not to say</option>
+              </Select>
+            </FormControl>
+
+            <AppTextField
+              // not sure if we are doing age groups
+              {...formProps}
+              label="DOB"
+              type="date"
+              name="user_dob"
+            />
+            <AppTextField
+              {...formProps}
+              // height ranges? or options
+              label="Height (cm)"
+              type="height"
+              name="user_height"
+            />
+            <AppTextField
+              {...formProps}
+              // weight ranges or options?
+              label="Weight (lbs)"
+              type="weight"
+              name="user_weight"
+            />
+            <Button
+              variant="contained"
+              color="primary"
+              className={classes.button}
+              type="submit"
+              onClick={formProps.handleSubmit}
+            >
                   Update
-              </Button>
-            </>
-            )
-          }}
+            </Button>
+          </>
+          )
+          }
         </BaseForm>
       </div>
     </Container>
