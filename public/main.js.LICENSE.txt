@@ -67,6 +67,8 @@ object-assign
 
 /*! ../Components */
 
+/*! ../Components/AppAvatarInput */
+
 /*! ../Components/AppTextField */
 
 /*! ../Components/BaseForm */
@@ -1536,6 +1538,8 @@ object-assign
 /*! @material-ui/system */
 
 /*! @material-ui/utils */
+
+/*! For license information please see main.js.LICENSE.txt */
 
 /*! axios */
 
@@ -3487,6 +3491,10 @@ object-assign
 
 /*!***************************************************!*\
   !*** ./node_modules/synchronous-promise/index.js ***!
+  \***************************************************/
+
+/*!***************************************************!*\
+  !*** ./resources/js/Components/AppAvatarInput.js ***!
   \***************************************************/
 
 /*!***************************************************!*\
