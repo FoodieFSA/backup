@@ -1,7 +1,6 @@
 import { connect } from 'react-redux'
 import { isClear } from '../Components'
-import { Button } from '@material-ui/core'
-import image from '../Assets/images/test.png'
+import { Avatar, Button } from '@material-ui/core'
 import '../../css/userProfile.css'
 
 function UserProfile ({ user, history }) {
@@ -14,7 +13,7 @@ function UserProfile ({ user, history }) {
   }
   return (
     <div id="user-profile-page">
-      <img src={image} id='user-avatar'/>
+      <Avatar id='user-avatar' src={user.socialAvatarUrl || null}/>
       <div id ='user-info'>
         <h3 style={{ textTransform: 'capitalize' }}>
           <span>Name: </span>
