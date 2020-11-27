@@ -114,7 +114,6 @@ export default (props) => {
             data.dataMode = 'update'
             data = _.cloneDeepWith(data, NullToEmpty)
             // console.log('afterClone', data)
-            console.log(data, 'sdsdsddsdsd')
             ModifyInfo(data)
           }
         )

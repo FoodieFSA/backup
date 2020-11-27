@@ -1,21 +1,18 @@
 import * as Yup from 'yup'
 import BaseForm from '../Components/BaseForm'
 import AppTextField from '../Components/AppTextField'
+import AppAvatarInput from '../Components/AppAvatarInput'
 import {
   FormControl,
   Select,
   InputLabel,
   Button,
   Container,
-  Avatar,
   Typography,
   makeStyles
 } from '@material-ui/core'
 import { connect } from 'react-redux'
-import { useState } from 'react'
-// import produce from 'immer'
 import api from '../Api'
-import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import history from '../history'
 import { updateUserThunk } from '../store'
 
@@ -31,10 +28,6 @@ const useStyles = makeStyles((theme) => ({
     margin: '10px',
     fontWeight: 'bolder'
   },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main
-  },
   form: {
     width: '100%', // Fix IE 11 issue.
     marginTop: theme.spacing(1)
@@ -45,17 +38,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 function UserProfileForm ({ userId, updateUser }) {
   const classes = useStyles();
-  const [state, setState] = useState({
-    first_name: '',
-    last_name: '',
-    user_gender: '',
-    user_dob: '',
-    user_height: '',
-    user_weight: ''
-  })
 
+  // https://www.pluralsight.com/guides/how-to-create-a-simple-form-submit-with-files?clickid=2nZQSxW6txyOT1NwUx0Mo38VUkEwEK2VsSM9xc0&irgwc=1&mpid=29332&aid=7010a000001xAKZAA2&utm_medium=digital_affiliate&utm_campaign=29332&utm_source=impactradius
   const onStartTransform = (data) => {
-    setState(data)
+    // setState(data)
     return data
   }
   /*
@@ -86,14 +72,11 @@ function UserProfileForm ({ userId, updateUser }) {
   return (
     <Container component="main" maxWidth="xs">
       <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <AccountBoxIcon />
-        </Avatar>
         <Typography component="h1" variant="h5">
-                  Update Your Information
+              Update Your Information
         </Typography>
         <BaseForm
-          initialValues={state}
+          // initialValues={state}
           validationSchema={ValidationSchema}
           // fastValidation
           externalApi={{
@@ -107,6 +90,7 @@ function UserProfileForm ({ userId, updateUser }) {
           buttonText="Update Profile"
         >
           {(formProps) => (<>
+            <AppAvatarInput {...formProps} myName="socialAvatarUrl" />
             <AppTextField
               {...formProps}
               label="First Name"
@@ -179,7 +163,7 @@ function UserProfileForm ({ userId, updateUser }) {
   )
 }
 const mapState = (state) => {
-  return { userId: state.user.id }
+  return { userId: state.user.id, userData: state.user.userData }
 }
 const mapDispatch = (dispatch) => {
   return {

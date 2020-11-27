@@ -38,6 +38,7 @@ Route::group(['prefix' => 'auth'], function () {
 Route::group(['prefix' => 'user'], function () {
     Route::put('updateUser', [UserController::class, 'updateUser']);
     Route::get('getUser', [UserController::class, 'getUser']);
+    Route::post('uploadAvatar', [UserController::class, 'uploadUserAvatar']);
 });
 
 Route::group(['prefix' => 'workoutLog'], function () {

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+
 
 class UserController extends AbsoluteController
 {
@@ -29,6 +31,7 @@ class UserController extends AbsoluteController
         $actualUser->user_weight=$request->user_weight;
         $actualUser->user_height=$request->user_height;
         $actualUser->user_dob=$request->user_dob;
+        $actualUser->socialAvatarUrl=$request->socialAvatarUrl;
         $actualUser->save();
 
         return response()->json($actualUser);
@@ -50,6 +53,29 @@ class UserController extends AbsoluteController
         return response()->json($findUser);
     }
 
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     * https://medium.com/dev-genius/laravel-api-file-upload-to-aws-a8e87319b82e#26e0
+     * https://medium.com/@sehmbimanvir/laravel-upload-files-to-amazon-s3-a17d013f53ce
+     */
+    public function uploadUserAvatar(Request $request):JsonResponse
+    {
+        $this->validate($request, [
+            'id' => 'required',
+            'avatar' => 'required|mimes:pdf,png,jpg|max:9999',
+        ]);
 
+        if($request->hasFile('avatar')) {
+            $path = $request->file('avatar')->storeAS('avatars/'.$request->id,$request->name, ['disk' => 's3', 'visibility' => 'public']);
+
+            $result = Storage::disk('s3')->url($path);
+
+            return response()->json($result);
+        } else {
+            return response()->json(['success' => false, 'message' => 'No file uploaded'], 400);
+        }
+
+    }
 
 }
