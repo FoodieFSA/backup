@@ -1,37 +1,43 @@
 import { Checkbox, Button } from '@material-ui/core'
+import '../../css/singleExercise.css'
+import { toggleCompleteSet, addExerciseSet, removedSet } from '../store'
+import { connect } from 'react-redux'
 
-const SingleExercise = ({ exercise, handleExerciseChange, exerciseId, addNewSet }) => {
+const SingleExercise = ({ exercise, exerciseIndex, toggleCompleteSet, addExerciseSet, removedSet }) => {
   const columnHeader = ['Set', 'lbs', 'repetition', 'Complete']
-  const toggleComplete = (setId, isComplete) => { handleExerciseChange(exerciseId, setId, null, null, null, null, !isComplete) }
+  // const toggleComplete = (setId, isComplete) => { handleExerciseChange(exerciseId, setId, null, null, null, null, !isComplete) }
 
   return (
     <>
-      <h2 style={{ textAlign: 'left', paddingLeft: '5%' }}>{exercise[0].exerciseName}</h2>
-      <table style={{ width: '100vw', paddingLeft: '5%', paddingRight: '5%' }}>
+      <h2 style={{ textAlign: 'left', paddingLeft: '5%' }}>{exercise.name}</h2>
+      <table>
         <thead>
           <tr>
             {columnHeader.map((columnName, index) => {
               return <th key={index}>{columnName.toUpperCase()}</th>
             })}
-            <th style={{ width: '100px' }}>
-              <Button style={{ backgroundColor: 'green', color: 'white' }} onClick={() => addNewSet(exerciseId, exercise[exercise.length - 1].set + 1)}>Add set</Button>
+            <th id = 'addSet'>
+              <Button onClick={() => addExerciseSet(exerciseIndex)}>Add set</Button>
             </th>
           </tr>
 
         </thead>
         <tbody >
           {
-            exercise.map((singleExercise, index) => {
+            exercise && exercise.sets.map((singleExercise, index) => {
               return <tr key ={index} >
-                <td>{singleExercise.set + 1}</td>
-                <td>{singleExercise.LBS}</td>
+                <td>{ index + 1}</td>
+                <td>{singleExercise.lbs}</td>
                 <td>{singleExercise.reps}</td>
                 <td>
                   <Checkbox
-                    checked={singleExercise.complete}
-                    onChange={() => toggleComplete(index, singleExercise.complete)}
+                    checked={singleExercise.completeStatus}
+                    onChange={() => toggleCompleteSet(exerciseIndex, index)}
                     inputProps={{ 'aria-label': 'secondary checkbox' }}
                   />
+                </td>
+                <td >
+                  <Button variant="contained" color="secondary" onClick={() => removedSet(exerciseIndex, index)} >Delete Set</Button>
                 </td>
               </tr>
             })
@@ -42,4 +48,11 @@ const SingleExercise = ({ exercise, handleExerciseChange, exerciseId, addNewSet 
   )
 }
 
-export default SingleExercise
+const mapDispatch = (dispatch) => {
+  return {
+    toggleCompleteSet: (exerciseIndex, setIndex) => dispatch(toggleCompleteSet(exerciseIndex, setIndex)),
+    addExerciseSet: (exerciseIndex) => dispatch(addExerciseSet(exerciseIndex)),
+    removedSet: (exerciseIndex, setIndex) => dispatch(removedSet(exerciseIndex, setIndex))
+  }
+}
+export default connect(null, mapDispatch)(SingleExercise)
