@@ -37,9 +37,13 @@ object-assign
 
 /*! !../../node_modules/css-loader/dist/cjs.js??ref--6-1!../../node_modules/postcss-loader/src??ref--6-2!./app.css */
 
+/*! !../../node_modules/css-loader/dist/cjs.js??ref--6-1!../../node_modules/postcss-loader/src??ref--6-2!./exerciseModal.css */
+
 /*! !../../node_modules/css-loader/dist/cjs.js??ref--6-1!../../node_modules/postcss-loader/src??ref--6-2!./index.css */
 
 /*! !../../node_modules/css-loader/dist/cjs.js??ref--6-1!../../node_modules/postcss-loader/src??ref--6-2!./userProfile.css */
+
+/*! ../../css/exerciseModal.css */
 
 /*! ../../css/userProfile.css */
 
@@ -52,8 +56,6 @@ object-assign
 /*! ../Accordion/AccordionContext */
 
 /*! ../Api */
-
-/*! ../Assets/images/test.png */
 
 /*! ../Backdrop */
 
@@ -386,6 +388,8 @@ object-assign
 /*! ./AppBar */
 
 /*! ./AppBarCollapse */
+
+/*! ./AppSearchInput */
 
 /*! ./Avatar */
 
@@ -1539,8 +1543,6 @@ object-assign
 
 /*! @material-ui/utils */
 
-/*! For license information please see main.js.LICENSE.txt */
-
 /*! axios */
 
 /*! bootstrap */
@@ -2095,6 +2097,10 @@ object-assign
 
 /*!*****************************************!*\
   !*** ./node_modules/scheduler/index.js ***!
+  \*****************************************/
+
+/*!*****************************************!*\
+  !*** ./resources/css/exerciseModal.css ***!
   \*****************************************/
 
 /*!******************************************!*\
@@ -2910,10 +2916,6 @@ object-assign
   \*********************************************/
 
 /*!*********************************************!*\
-  !*** ./resources/js/Assets/images/test.png ***!
-  \*********************************************/
-
-/*!*********************************************!*\
   !*** ./resources/js/Components/BaseForm.js ***!
   \*********************************************/
 
@@ -3495,6 +3497,10 @@ object-assign
 
 /*!***************************************************!*\
   !*** ./resources/js/Components/AppAvatarInput.js ***!
+  \***************************************************/
+
+/*!***************************************************!*\
+  !*** ./resources/js/Components/AppSearchInput.js ***!
   \***************************************************/
 
 /*!***************************************************!*\
@@ -5772,6 +5778,10 @@ object-assign
 /*!***********************************************************************************************************************************!*\
   !*** ./node_modules/css-loader/dist/cjs.js??ref--6-1!./node_modules/postcss-loader/src??ref--6-2!./resources/css/userProfile.css ***!
   \***********************************************************************************************************************************/
+
+/*!*************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??ref--6-1!./node_modules/postcss-loader/src??ref--6-2!./resources/css/exerciseModal.css ***!
+  \*************************************************************************************************************************************/
 
 /**
  * @license
