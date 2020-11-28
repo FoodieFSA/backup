@@ -1,0 +1,27 @@
+.modal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.paper {
+    background-color: white;
+    padding: 20px;
+    border-style: none;
+}
+
+.scroll {
+    height: 30vh;
+    overflow-x: hidden;
+    overflow-y: auto;
+    text-align: justify;
+}
+
+#modal-title {
+    text-align: center;
+}
+
+#addBtn {
+    padding-top: 10px;
+    margin-top: 10px;
+}
