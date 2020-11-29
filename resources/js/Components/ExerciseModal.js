@@ -12,7 +12,8 @@ import {
 import produce from 'immer';
 import '../../css/exerciseModal.css';
 import AppSearchInput from './AppSearchInput'
-
+import { connect } from 'react-redux'
+import { addExercise } from '../store'
 // TODO use backend data for the search
 const dummyData = [
   { id: 0, body_part: 'Chest', name: 'Bench Press' },
@@ -28,7 +29,7 @@ const dummyData = [
   { id: 10, body_part: 'Biceps', name: 'Dumbbell Curls' }
 ];
 
-const ExerciseModal = ({ handleOpen, open, handleSubmit }) => {
+const ExerciseModal = ({ toggleModal, open, addExercise }) => {
   const [state, setState] = useState({
     searchResults: [...dummyData],
     searchInput: '',
@@ -40,21 +41,17 @@ const ExerciseModal = ({ handleOpen, open, handleSubmit }) => {
       return exercise.name.toLowerCase().startsWith(input.toLowerCase());
     });
 
-    setState(
-      produce((draftState) => {
-        draftState.searchResults = searchResults;
-      })
-    );
+    setState(produce((draftState) => {
+      draftState.searchResults = searchResults;
+    }));
   };
 
   const handleSearchInput = (e) => {
     // Look into this e.persist?
     e.persist();
-    setState(
-      produce((draftState) => {
-        draftState.searchInput = e.target.value;
-      })
-    );
+    setState(produce((draftState) => {
+      draftState.searchInput = e.target.value;
+    }));
 
     searchExercises(e.target.value);
   };
@@ -68,13 +65,18 @@ const ExerciseModal = ({ handleOpen, open, handleSubmit }) => {
     );
   };
 
+  const handleAddSubmit = () => {
+    addExercise(dummyData.find(exercise => exercise.name === state.selectedExercise))
+    toggleModal()
+  }
+
   return (
     <Modal
       // aria-labelledby="transition-modal-title"
       // aria-describedby="transition-modal-description"
       className="modal"
       open={open}
-      onClose={handleOpen}
+      onClose={toggleModal}
       closeAfterTransition
       BackdropComponent={Backdrop}
       BackdropProps={{
@@ -92,12 +94,13 @@ const ExerciseModal = ({ handleOpen, open, handleSubmit }) => {
               value={state.selectedExercise}
               onChange={handleSelectedExercise}
             >
-              {state.searchResults.map((result) => {
+              {state.searchResults.map((result, index) => {
                 return (
                   <FormControlLabel
                     key={result.id}
                     value={result.name}
                     label={result.name}
+                    id={index}
                     control={<Radio />}
                   >
                     {result.name}
@@ -106,7 +109,7 @@ const ExerciseModal = ({ handleOpen, open, handleSubmit }) => {
               })}
             </RadioGroup>
           </div>
-          <Button id='addBtn' variant="contained" color="primary" onClick={handleSubmit}>
+          <Button id='addBtn' variant="contained" color="primary" onClick={handleAddSubmit}>
                         Add
           </Button>
         </div>
@@ -114,5 +117,9 @@ const ExerciseModal = ({ handleOpen, open, handleSubmit }) => {
     </Modal>
   );
 };
-
-export default ExerciseModal;
+const mapDispatch = (dispatch) => {
+  return {
+    addExercise: (exercise) => dispatch(addExercise(exercise))
+  }
+}
+export default connect(null, mapDispatch)(ExerciseModal);

@@ -3,16 +3,8 @@ import { Button } from '@material-ui/core'
 import produce from 'immer'
 import SingleExercise from '../Components/SingleExercise'
 import ExerciseModal from '../Components/ExerciseModal'
-
-const WorkoutLog = () => {
-  const initialExercise = {
-    exerciseName: 'Bench Press',
-    set: 0,
-    LBS: 0,
-    reps: 0,
-    complete: false
-  }
-
+import { connect } from 'react-redux'
+const WorkoutLog = ({ workoutLog }) => {
   const [state, setState] = useState({
     workoutLogName: 'MONDAY WORKOUT',
     exerciseSets: [],
@@ -20,89 +12,34 @@ const WorkoutLog = () => {
   })
 
   // Modal logic
-  const handleOpen = () => {
-    setState(
-      produce((draftState) => {
-        draftState.modalOpen = !state.modalOpen
-      })
-    )
-  }
-
-  const handleExerciseChange = (
-    exerciseId,
-    setId,
-    incomingExerciseName,
-    incomingSet,
-    incomingLBS,
-    incomingReps,
-    incomingComplete
-  ) => {
-    const tempExercise = state.exerciseSets[exerciseId][setId]
-    setState(
-      produce((draftState) => {
-        draftState.exerciseSets[exerciseId][setId].exerciseName =
-          incomingExerciseName || tempExercise.exerciseName
-        draftState.exerciseSets[exerciseId][setId].set =
-          incomingSet || tempExercise.set
-        draftState.exerciseSets[exerciseId][setId].LBS =
-          incomingLBS || tempExercise.LBS
-        draftState.exerciseSets[exerciseId][setId].reps =
-          incomingReps || tempExercise.reps
-        draftState.exerciseSets[exerciseId][setId].complete =
-          incomingComplete === null ? tempExercise.complete : incomingComplete
-      })
-    )
-  }
-
-  // TODO need the remove exercise function and remove set function
-  // Adds the new exercise and closes the modal after
-  const handleSubmit = () => {
-    console.log('STATE', state)
-    setState(
-      produce((draftState) => {
-        draftState.exerciseSets.push([{ ...initialExercise }])
-      })
-    )
-
-    handleOpen()
-  }
-  const addNewSet = (exerciseIndex, prevSetNum = 0) => {
-    const tempSet = { ...initialExercise }
-    tempSet.set = prevSetNum
-    setState(
-      produce((draftState) => {
-        draftState.exerciseSets[exerciseIndex].push({ ...tempSet })
-      })
-    )
+  const toggleModal = () => {
+    setState(produce((draftState) => {
+      draftState.modalOpen = !state.modalOpen
+    }))
   }
 
   return (
     <div style={{ flex: 1 }}>
-      <h2 id="workoutlog-title">{state.workoutLogName}</h2>
-      {state.exerciseSets &&
-        state.exerciseSets.map((exercise, index) => {
+      <h2 id="workoutlog-title">{workoutLog.workoutLogName}</h2>
+      {
+        workoutLog && workoutLog.exercises.map((exercise, index) => {
           return (
-            <SingleExercise
-              key={index}
-              exerciseId={index}
-              exercise={exercise}
-              handleExerciseChange={handleExerciseChange}
-              addNewSet={addNewSet}
-            />
+            <SingleExercise key={index} exerciseIndex={index} exercise={exercise}/>
           )
-        })}
-
-      <Button variant="contained" color="primary" onClick={handleOpen}>
+        })
+      }
+      <Button variant="contained" color="primary" onClick={toggleModal}>
         Add a New Exercise
       </Button>
-
-      <ExerciseModal
-        handleOpen={handleOpen}
-        open={state.modalOpen}
-        handleSubmit={handleSubmit}
-      />
+      <ExerciseModal toggleModal={toggleModal} open={state.modalOpen}/>
     </div>
   )
 }
 
-export default WorkoutLog
+const mapState = (state) => {
+  return {
+    workoutLog: state.workoutLog
+  }
+}
+
+export default connect(mapState, null)(WorkoutLog)

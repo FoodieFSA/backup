@@ -1,0 +1,13 @@
+table {
+    width: 100vw;
+    padding-left: 5%;
+    padding-right: 5%;
+}
+
+#addSet {
+    width: 200px;
+}
+#addSet button {
+    background-color: green;
+    color: white;
+}

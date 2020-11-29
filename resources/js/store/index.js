@@ -4,12 +4,15 @@ import thunkMiddleware from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import { persistStore, persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage' // defaults to localStorage for web
-import user from './user'
+// reducers
+import userReducer from './reducer/userReducer'
+import workoutLogReducer from './reducer/workoutlogReducer'
+
 const persistConfig = {
   key: 'root',
   storage
 }
-const rootReducer = combineReducers({ user })
+const rootReducer = combineReducers({ userReducer, workoutLogReducer })
 const persistedReducer = persistReducer(persistConfig, rootReducer)
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({ collapsed: true }))
@@ -20,4 +23,5 @@ const persistor = persistStore(store)
 export { store, persistor }
 
 // export default store
-export * from './user'
+export * from './reducer/userReducer'
+export * from './reducer/workoutlogReducer'
