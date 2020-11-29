@@ -1,15 +1,24 @@
 import { Checkbox, Button } from '@material-ui/core'
 import '../../css/singleExercise.css'
-import { toggleCompleteSet, addExerciseSet, removedSet } from '../store'
+import { removeExercise, toggleCompleteSet, addExerciseSet, removedSet } from '../store'
 import { connect } from 'react-redux'
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 
-const SingleExercise = ({ exercise, exerciseIndex, toggleCompleteSet, addExerciseSet, removedSet }) => {
+const SingleExercise = ({ exercise, exerciseIndex, toggleCompleteSet, addExerciseSet, removedSet, removeExercise }) => {
   const columnHeader = ['Set', 'lbs', 'repetition', 'Complete']
   // const toggleComplete = (setId, isComplete) => { handleExerciseChange(exerciseId, setId, null, null, null, null, !isComplete) }
 
   return (
     <>
-      <h2 style={{ textAlign: 'left', paddingLeft: '5%' }}>{exercise.name}</h2>
+      <div style={{ display: 'flex', flexDirection: 'row' }}>
+        <h2 style={{ textAlign: 'left', paddingLeft: '5%' }}>{exercise.name}</h2>
+        <Button variant="contained" color="secondary"
+          style={{ margin: '15px' }}
+          onClick={() => removeExercise(exerciseIndex)}
+          startIcon={<DeleteForeverIcon />}>
+            Remove Exercise
+        </Button>
+      </div>
       <table>
         <thead>
           <tr>
@@ -52,7 +61,8 @@ const mapDispatch = (dispatch) => {
   return {
     toggleCompleteSet: (exerciseIndex, setIndex) => dispatch(toggleCompleteSet(exerciseIndex, setIndex)),
     addExerciseSet: (exerciseIndex) => dispatch(addExerciseSet(exerciseIndex)),
-    removedSet: (exerciseIndex, setIndex) => dispatch(removedSet(exerciseIndex, setIndex))
+    removedSet: (exerciseIndex, setIndex) => dispatch(removedSet(exerciseIndex, setIndex)),
+    removeExercise: (exerciseIndex) => dispatch(removeExercise(exerciseIndex))
   }
 }
 export default connect(null, mapDispatch)(SingleExercise)
