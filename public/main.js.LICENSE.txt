@@ -45,11 +45,15 @@ object-assign
 
 /*! !../../node_modules/css-loader/dist/cjs.js??ref--6-1!../../node_modules/postcss-loader/src??ref--6-2!./userProfile.css */
 
+/*! ../../Api */
+
 /*! ../../css/exerciseModal.css */
 
 /*! ../../css/singleExercise.css */
 
 /*! ../../css/userProfile.css */
+
+/*! ../../history */
 
 /*! ../../node_modules/css-loader/dist/runtime/api.js */
 
@@ -1313,6 +1317,10 @@ object-assign
 
 /*! ./red */
 
+/*! ./reducer/userReducer */
+
+/*! ./reducer/workoutlogReducer */
+
 /*! ./refType */
 
 /*! ./requirePropFactory */
@@ -1393,8 +1401,6 @@ object-assign
 
 /*! ./useTheme */
 
-/*! ./user */
-
 /*! ./util/createValidation */
 
 /*! ./util/inherits */
@@ -1448,8 +1454,6 @@ object-assign
 /*! ./withWidth */
 
 /*! ./words.js */
-
-/*! ./workoutLog */
 
 /*! ./wrapMapToProps */
 
@@ -1529,6 +1533,8 @@ object-assign
 
 /*! @material-ui/icons/AddCircleOutline */
 
+/*! @material-ui/icons/DeleteForever */
+
 /*! @material-ui/icons/ExitToApp */
 
 /*! @material-ui/icons/Home */
@@ -1548,6 +1554,8 @@ object-assign
 /*! @material-ui/system */
 
 /*! @material-ui/utils */
+
+/*! For license information please see main.js.LICENSE.txt */
 
 /*! axios */
 
@@ -1589,7 +1597,7 @@ object-assign
 
 /*! exports provided: __DO_NOT_USE__ActionTypes, applyMiddleware, bindActionCreators, combineReducers, compose, createStore */
 
-/*! exports provided: addExercise, toggleCompleteSet, addExerciseSet, removedSet, getWorkoutLog, removeExercise, updateSet, removeSet, default */
+/*! exports provided: addExercise, removeExercise, toggleCompleteSet, addExerciseSet, removedSet, getWorkoutLog, updateSet, default */
 
 /*! exports provided: ariaHidden, default */
 
@@ -1721,7 +1729,7 @@ object-assign
 
 /*! exports provided: specialProperty, default */
 
-/*! exports provided: store, persistor, refreshUserToken, me, auth, logout, updateUserThunk, addExercise, toggleCompleteSet, addExerciseSet, removedSet, getWorkoutLog, removeExercise, updateSet, removeSet */
+/*! exports provided: store, persistor, refreshUserToken, me, auth, logout, updateUserThunk, addExercise, removeExercise, toggleCompleteSet, addExerciseSet, removedSet, getWorkoutLog, updateSet */
 
 /*! exports provided: styleFunction, default */
 
@@ -1929,10 +1937,6 @@ object-assign
 
 /*!************************************!*\
   !*** ./resources/js/pages/Home.js ***!
-  \************************************/
-
-/*!************************************!*\
-  !*** ./resources/js/store/user.js ***!
   \************************************/
 
 /*!*************************************!*\
@@ -2529,10 +2533,6 @@ object-assign
 
 /*!******************************************!*\
   !*** ./resources/js/pages/WorkoutLog.js ***!
-  \******************************************/
-
-/*!******************************************!*\
-  !*** ./resources/js/store/workoutLog.js ***!
   \******************************************/
 
 /*!*******************************************!*\
@@ -3527,6 +3527,10 @@ object-assign
   !*** ./resources/js/Navigation/AppBarCollapse.js ***!
   \***************************************************/
 
+/*!***************************************************!*\
+  !*** ./resources/js/store/reducer/userReducer.js ***!
+  \***************************************************/
+
 /*!****************************************************!*\
   !*** ./node_modules/axios/lib/core/createError.js ***!
   \****************************************************/
@@ -3899,6 +3903,10 @@ object-assign
   !*** ./resources/js/Navigation/ButtonAppBarCollapse.js ***!
   \*********************************************************/
 
+/*!*********************************************************!*\
+  !*** ./resources/js/store/reducer/workoutlogReducer.js ***!
+  \*********************************************************/
+
 /*!**********************************************************!*\
   !*** ./node_modules/@babel/runtime/regenerator/index.js ***!
   \**********************************************************/
@@ -3957,6 +3965,10 @@ object-assign
 
 /*!**********************************************************!*\
   !*** ./node_modules/@material-ui/icons/AccountCircle.js ***!
+  \**********************************************************/
+
+/*!**********************************************************!*\
+  !*** ./node_modules/@material-ui/icons/DeleteForever.js ***!
   \**********************************************************/
 
 /*!**********************************************************!*\
