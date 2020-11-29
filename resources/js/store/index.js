@@ -5,14 +5,14 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 import { persistStore, persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage' // defaults to localStorage for web
 // reducers
-import userReducer from './reducer/userReducer'
-import workoutLogReducer from './reducer/workoutlogReducer'
+import user from './reducer/userReducer'
+import workoutLog from './reducer/workoutlogReducer'
 
 const persistConfig = {
   key: 'root',
   storage
 }
-const rootReducer = combineReducers({ userReducer, workoutLogReducer })
+const rootReducer = combineReducers({ user, workoutLog })
 const persistedReducer = persistReducer(persistConfig, rootReducer)
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({ collapsed: true }))
