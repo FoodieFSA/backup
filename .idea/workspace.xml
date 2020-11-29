@@ -30,10 +30,7 @@
       <change beforePath="$PROJECT_DIR$/public/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/main.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/main.js.LICENSE.txt" beforeDir="false" afterPath="$PROJECT_DIR$/public/main.js.LICENSE.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/mix-manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/public/mix-manifest.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/Components/SingleExercise.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/Components/SingleExercise.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/store/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/store/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/store/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/store/reducer/userReducer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/store/workoutLog.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/store/reducer/workoutlogReducer.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -303,7 +300,7 @@
       <workItem from="1606416545119" duration="2675000" />
       <workItem from="1606419848710" duration="2431000" />
       <workItem from="1606500748857" duration="11055000" />
-      <workItem from="1606674721953" duration="5093000" />
+      <workItem from="1606674721953" duration="5838000" />
     </task>
     <servers />
   </component>
