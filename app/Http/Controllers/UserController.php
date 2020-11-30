@@ -63,7 +63,7 @@ class UserController extends AbsoluteController
     {
         $this->validate($request, [
             'id' => 'required',
-            'avatar' => 'required|mimes:pdf,png,jpg|max:9999',
+            'avatar' => 'required|mimes:pdf,png,jpg,jpeg|max:9999',
         ]);
 
         if($request->hasFile('avatar')) {
