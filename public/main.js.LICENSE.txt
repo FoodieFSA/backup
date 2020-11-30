@@ -45,6 +45,8 @@ object-assign
 
 /*! !../../node_modules/css-loader/dist/cjs.js??ref--6-1!../../node_modules/postcss-loader/src??ref--6-2!./userProfile.css */
 
+/*! !../../node_modules/css-loader/dist/cjs.js??ref--6-1!../../node_modules/postcss-loader/src??ref--6-2!./workoutlog.css */
+
 /*! ../../Api */
 
 /*! ../../css/exerciseModal.css */
@@ -52,6 +54,8 @@ object-assign
 /*! ../../css/singleExercise.css */
 
 /*! ../../css/userProfile.css */
+
+/*! ../../css/workoutlog.css */
 
 /*! ../../history */
 
@@ -1551,6 +1555,8 @@ object-assign
 
 /*! @material-ui/icons/PhotoCamera */
 
+/*! @material-ui/icons/Save */
+
 /*! @material-ui/icons/Search */
 
 /*! @material-ui/lab/Skeleton */
@@ -1560,8 +1566,6 @@ object-assign
 /*! @material-ui/system */
 
 /*! @material-ui/utils */
-
-/*! For license information please see main.js.LICENSE.txt */
 
 /*! axios */
 
@@ -1991,6 +1995,10 @@ object-assign
 
 /*!**************************************!*\
   !*** ./node_modules/yup/es/mixed.js ***!
+  \**************************************/
+
+/*!**************************************!*\
+  !*** ./resources/css/workoutlog.css ***!
   \**************************************/
 
 /*!**************************************!*\
@@ -3295,6 +3303,10 @@ object-assign
 
 /*!*************************************************!*\
   !*** ./node_modules/@material-ui/icons/Home.js ***!
+  \*************************************************/
+
+/*!*************************************************!*\
+  !*** ./node_modules/@material-ui/icons/Save.js ***!
   \*************************************************/
 
 /*!*************************************************!*\
@@ -5820,6 +5832,10 @@ object-assign
 /*!*****************************************************************************************************************************!*\
   !*** ./node_modules/css-loader/dist/cjs.js??ref--6-1!./node_modules/postcss-loader/src??ref--6-2!./resources/css/index.css ***!
   \*****************************************************************************************************************************/
+
+/*!**********************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??ref--6-1!./node_modules/postcss-loader/src??ref--6-2!./resources/css/workoutlog.css ***!
+  \**********************************************************************************************************************************/
 
 /*!***********************************************************************************************************************************!*\
   !*** ./node_modules/css-loader/dist/cjs.js??ref--6-1!./node_modules/postcss-loader/src??ref--6-2!./resources/css/userProfile.css ***!
