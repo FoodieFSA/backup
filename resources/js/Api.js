@@ -1,7 +1,7 @@
 import axios from 'axios'
 // import moment from 'moment'
 import { isClear } from './Components'
-import { store, refreshUserToken } from './store'
+import { refreshUserToken, store, removeUser } from './store'
 import history from './history'
 
 const serverUrl = process.env.NODE_ENV === 'development' ? 'http://localhost:8000/api/' : 'https://keepupfsa.herokuapp.com/api/'
@@ -47,42 +47,49 @@ api.interceptors.request.use(
 // https://gist.github.com/mkjiau/650013a99c341c9f23ca00ccb213db1c
 api.interceptors.response.use(response => response,
   async error => {
-    const originalRequest = error.config;
-    console.log(originalRequest.url)
-    if (error.response.status === 401 && !originalRequest._retry) {
+    const { config, response: { status } } = error;
+    const originalRequest = config;
+    if (status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
-
       const userInfo = store.getState().user
 
       if (isClear(userInfo.id)) {
         return Promise.reject(error);
       }
-
-      axios.post(`${serverUrl}auth/refresh_token`, null, { withCredentials: true }).then(response => {
-        const tokenInfo = response.data
-        if (isClear(tokenInfo.accessToken)) {
-          history.push('/login')
-          return Promise.reject(error);
-        }
-        const refreshUser = {
-          accessToken: tokenInfo.accessToken,
-          tokenType: tokenInfo.tokenType,
-          expiresIn: tokenInfo.expiresIn,
-          id: userInfo.id,
-          userType: userInfo.userType,
-          userData: userInfo.userData
-        }
-        store.dispatch(refreshUserToken(refreshUser))
-
-        originalRequest.headers.Authorization = tokenInfo.tokenType + ' ' + tokenInfo.accessToken
+      const refreshUser = await onRefreshTokens(userInfo)
+      if (!isClear(refreshUser)) {
+        originalRequest.headers.Authorization = refreshUser.tokenType + ' ' + refreshUser.accessToken
         return new Promise((resolve) => resolve(axios(originalRequest)))
-      }).catch(error => {
-        console.log(error)
+      } else {
+        alert('there is an error, please login back in again and try again!')
+        // clear the store and redirect user back to login page
+        store.dispatch(removeUser())
         history.push('/login')
-      })
+        return Promise.reject(error);
+      }
     }
     return Promise.reject(error)
   }
 )
-
+function onRefreshTokens (userInfo) {
+  return axios.post(`${serverUrl}auth/refresh_token`, null, { withCredentials: true }).then(response => {
+    const tokenInfo = response.data
+    if (isClear(tokenInfo.accessToken)) {
+      return null
+    }
+    const refreshUser = {
+      accessToken: tokenInfo.accessToken,
+      tokenType: tokenInfo.tokenType,
+      expiresIn: tokenInfo.expiresIn,
+      id: userInfo.id,
+      userType: userInfo.userType,
+      userData: userInfo.userData
+    }
+    store.dispatch(refreshUserToken(refreshUser))
+    return refreshUser
+  }).catch(error => {
+    console.error(error)
+    return null
+  })
+}
 export default api
