@@ -11,7 +11,8 @@ const REMOVED_EXERCISE = 'REMOVED_EXERCISE'
 
 // for set
 const ADDED_SET = 'ADDED_SET'
-const UPDATED_SET = 'UPDATED_SET'
+const UPDATED_SET_LBS = 'UPDATED_SET_LBS'
+const UPDATED_SET_REPS = 'UPDATED_SET_REPS'
 const REMOVED_SET = 'REMOVED_SET'
 const COMPLETE_SET = 'COMPLETE_SET'
 // const SAVED = "SAVED"
@@ -38,21 +39,23 @@ const emptySet = { lbs: 0, reps: 0, completeStatus: false }
 //   sets: [{lbs: 0, rep: 0, completeStatus: false}],
 // }
 
+// for exercise section...........................
 const gotWorkoutLog = (workout) => ({ type: GOT_WORKOUTS, workout })
 const createdWorkout = (workout) => ({ type: CREATED_WORKOUT, workout })
 export const addExercise = (exercise) => ({ type: ADDED_EXERCISE, exercise })
 export const removeExercise = (exerciseIndex) => ({ type: REMOVED_EXERCISE, exerciseIndex })
-// const removedSet = (exerciseId, set) => ({ type: REMOVED_SET, exerciseId, set })
-const updatedSet = (exerciseId, set) => ({ type: UPDATED_SET, exerciseId, set })
 
+// for set section...........................
+// const removedSet = (exerciseId, set) => ({ type: REMOVED_SET, exerciseId, set })
+// const updatedSet = (exerciseId, set) => ({ type: UPDATED_SET, exerciseId, set })
+export const updateSetLbs = (exerciseIndex, setIndex, userInputLbs) => ({ type: UPDATED_SET_LBS, exerciseIndex, setIndex, userInputLbs })
+export const updateSetReps = (exerciseIndex, setIndex, userInputReps) => ({ type: UPDATED_SET_REPS, exerciseIndex, setIndex, userInputReps })
 export const toggleCompleteSet = (exerciseIndex, setIndex) => ({ type: COMPLETE_SET, exerciseIndex, setIndex })
 export const addExerciseSet = (exerciseIndex) => ({ type: ADDED_SET, exerciseIndex })
 export const removedSet = (exerciseIndex, setIndex) => ({ type: REMOVED_SET, exerciseIndex, setIndex })
 /*
 TODO:
-- need to incoporate immer to the object
 - need to account for same day workout -> thinking to use Date as identifier for workout objects
-- need immer^ for this
 */
 
 /**
@@ -86,27 +89,6 @@ export const getWorkoutLog = (logId, userId) => async (dispatch) => {
     }
   } catch (error) {
     console.log(error)
-  }
-}
-
-export const updateSet = (exerciseId, set) => async (dispatch) => {
-  try {
-    const localWorkout = JSON.parse(localStorage.getItem('workoutLog')).exercise.map(exercise => {
-      if (exercise.id === exerciseId) {
-        exercise.sets.map(currentSet => {
-          if (currentSet.id === set.id) {
-            return set
-          } else {
-            return currentSet
-          }
-        })
-      }
-      return exercise
-    })
-    localStorage.setItem('workoutLog', JSON.stringify(localWorkout))
-    dispatch(updatedSet(exerciseId, set))
-  } catch (error) {
-    console.error(error)
   }
 }
 
@@ -223,6 +205,22 @@ const workoutlogReducer = produce((draft, action) => {
     }
     case ADDED_SET: {
       draft.exercises[action.exerciseIndex].sets.push({ ...emptySet })
+      return draft
+    }
+    case UPDATED_SET_LBS: {
+      if (action.userInputLbs >= 0) {
+        draft.exercises[action.exerciseIndex].sets[action.setIndex].lbs = action.userInputLbs
+      } else {
+        alert('The pound can not accept negative input number,please try the number that bigger than zero!')
+      }
+      return draft
+    }
+    case UPDATED_SET_REPS: {
+      if (action.userInputReps >= 0) {
+        draft.exercises[action.exerciseIndex].sets[action.setIndex].reps = action.userInputReps
+      } else {
+        alert('The repetition can not accept negative input number,please try the number that bigger than zero!')
+      }
       return draft
     }
     default:

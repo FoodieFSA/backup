@@ -3,7 +3,7 @@ import { makeStyles, Modal, CircularProgress } from '@material-ui/core'
 import { isClear, HandleError } from './index'
 import { Formik } from 'formik'
 import _ from 'lodash'
-
+import Skeleton from '@material-ui/lab/Skeleton';
 const useStyles = makeStyles((theme) => ({
   button: {
     margin: '10px',
@@ -181,6 +181,13 @@ export default (props) => {
       </>
     )
   } else {
-    return <p>loading</p>
+    return (
+      <>
+        <Skeleton animation="wave" style={{ width: '100%', height: '5vh' }}/>
+        <Skeleton animation="wave" style={{ width: '100%', height: '5vh' }}/>
+        <Skeleton animation="wave" style={{ width: '100%', height: '5vh' }}/>
+        <Skeleton animation="wave" style={{ width: '100%', height: '5vh' }}/>
+      </>
+    )
   }
 }

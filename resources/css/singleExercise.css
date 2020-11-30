@@ -1,13 +1,47 @@
 table {
-    width: 100vw;
-    padding-left: 5%;
-    padding-right: 5%;
+    width: 80vw;
+    margin-left: 10%;
 }
-
+td {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
 #addSet {
     width: 200px;
 }
 #addSet button {
     background-color: green;
     color: white;
+}
+
+#exerciseHeader {
+    display: flex;
+    flex-direction: row;
+}
+#exerciseHeader h2 {
+    text-align: left;
+    padding-left: 5%;
+}
+
+#exerciseHeader button {
+    margin: 15px;
+    /*marginRight:"5%"*/
+}
+
+@media only screen and (max-width: 430px) {
+    table {
+        /*width: 100%;*/
+        /*margin-left: %;*/
+        /*padding-left: 5%;*/
+        /*padding-right: 5%;*/
+
+        width: 100vw;
+        margin-left: 4%;
+        /*margin-right: 0;*/
+    }
+    #exerciseHeader {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
 }

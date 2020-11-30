@@ -1,31 +1,33 @@
-import { Checkbox, Button } from '@material-ui/core'
+import { Checkbox, Button, TextField, IconButton } from '@material-ui/core'
 import '../../css/singleExercise.css'
-import { removeExercise, toggleCompleteSet, addExerciseSet, removedSet } from '../store'
+import { removeExercise, toggleCompleteSet, addExerciseSet, removedSet, updateSetLbs, updateSetReps } from '../store'
 import { connect } from 'react-redux'
-import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+import CloseIcon from '@material-ui/icons/Close';
 
-const SingleExercise = ({ exercise, exerciseIndex, toggleCompleteSet, addExerciseSet, removedSet, removeExercise }) => {
-  const columnHeader = ['Set', 'lbs', 'repetition', 'Complete']
-  // const toggleComplete = (setId, isComplete) => { handleExerciseChange(exerciseId, setId, null, null, null, null, !isComplete) }
-
+const SingleExercise = ({
+  exercise, exerciseIndex,
+  toggleCompleteSet, addExerciseSet,
+  removedSet, removeExercise,
+  updateSetLbs, updateSetReps
+}) => {
   return (
     <>
-      <div style={{ display: 'flex', flexDirection: 'row' }}>
-        <h2 style={{ textAlign: 'left', paddingLeft: '5%' }}>{exercise.name}</h2>
+      <div id='exerciseHeader'>
+        <h2 >{exercise.name}</h2>
         <Button variant="contained" color="secondary"
-          style={{ margin: '15px' }}
           onClick={() => removeExercise(exerciseIndex)}
-          startIcon={<DeleteForeverIcon />}>
+        >
             Remove Exercise
         </Button>
       </div>
       <table>
         <thead>
           <tr>
-            {columnHeader.map((columnName, index) => {
-              return <th key={index}>{columnName.toUpperCase()}</th>
-            })}
-            <th id = 'addSet'>
+            <th >Set</th>
+            <th style={{ maxWidth: '80px', minWidth: '60px' }}>Lbs</th>
+            <th style={{ maxWidth: '70px', minWidth: '60px' }}>Reps</th>
+            <th >Complete</th>
+            <th id ='addSet'>
               <Button onClick={() => addExerciseSet(exerciseIndex)}>Add set</Button>
             </th>
           </tr>
@@ -36,8 +38,25 @@ const SingleExercise = ({ exercise, exerciseIndex, toggleCompleteSet, addExercis
             exercise && exercise.sets.map((singleExercise, index) => {
               return <tr key ={index} >
                 <td>{ index + 1}</td>
-                <td>{singleExercise.lbs}</td>
-                <td>{singleExercise.reps}</td>
+                <td>
+                  <TextField
+                    onChange={(event) => updateSetLbs(exerciseIndex, index, event.target.value)}
+                    variant="outlined"
+                    type="number"
+                    InputLabelProps={{
+                      shrink: true
+                    }}
+                    value={singleExercise.lbs}/>
+                </td>
+                <td>
+                  <TextField
+                    onChange={(event) => updateSetReps(exerciseIndex, index, event.target.value)}
+                    type="number"
+                    InputLabelProps={{
+                      shrink: true
+                    }}
+                    variant="outlined" value={singleExercise.reps}/>
+                </td>
                 <td>
                   <Checkbox
                     checked={singleExercise.completeStatus}
@@ -46,7 +65,9 @@ const SingleExercise = ({ exercise, exerciseIndex, toggleCompleteSet, addExercis
                   />
                 </td>
                 <td >
-                  <Button variant="contained" color="secondary" onClick={() => removedSet(exerciseIndex, index)} >Delete Set</Button>
+                  <IconButton aria-label="delete" style={{ backgroundColor: 'red' }} onClick={() => removedSet(exerciseIndex, index)} >
+                    <CloseIcon style={{ color: 'white' }}/>
+                  </IconButton>
                 </td>
               </tr>
             })
@@ -62,7 +83,9 @@ const mapDispatch = (dispatch) => {
     toggleCompleteSet: (exerciseIndex, setIndex) => dispatch(toggleCompleteSet(exerciseIndex, setIndex)),
     addExerciseSet: (exerciseIndex) => dispatch(addExerciseSet(exerciseIndex)),
     removedSet: (exerciseIndex, setIndex) => dispatch(removedSet(exerciseIndex, setIndex)),
-    removeExercise: (exerciseIndex) => dispatch(removeExercise(exerciseIndex))
+    removeExercise: (exerciseIndex) => dispatch(removeExercise(exerciseIndex)),
+    updateSetLbs: (exerciseIndex, setIndex, userInputLbs) => dispatch(updateSetLbs(exerciseIndex, setIndex, userInputLbs)),
+    updateSetReps: (exerciseIndex, setIndex, userInputReps) => dispatch(updateSetReps(exerciseIndex, setIndex, userInputReps))
   }
 }
 export default connect(null, mapDispatch)(SingleExercise)
