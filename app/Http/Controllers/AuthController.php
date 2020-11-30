@@ -46,7 +46,7 @@ class AuthController extends Controller
             return $this->RespondWithToken($responseTokens,  $findUser->user_type,$findUser,$cookie);
 
         }else {
-            return response()->json(['message' => 'Unauthorized'], 401);
+            return response()->json(['error' => 'Email or password does not match' ], 401);
         }
     }
     /**

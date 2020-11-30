@@ -28,7 +28,7 @@ const WorkoutLog = ({ workoutLog }) => {
           )
         })
       }
-      <Button variant="contained" color="primary" onClick={toggleModal}>
+      <Button variant="contained" style={{ marginTop: '10px' }} color="primary" onClick={toggleModal}>
         Add a New Exercise
       </Button>
       <ExerciseModal toggleModal={toggleModal} open={state.modalOpen}/>

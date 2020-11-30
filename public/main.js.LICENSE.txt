@@ -627,6 +627,8 @@ object-assign
 
 /*! ./SimpleBackdrop */
 
+/*! ./Skeleton */
+
 /*! ./Slide */
 
 /*! ./Slider */
@@ -1533,7 +1535,7 @@ object-assign
 
 /*! @material-ui/icons/AddCircleOutline */
 
-/*! @material-ui/icons/DeleteForever */
+/*! @material-ui/icons/Close */
 
 /*! @material-ui/icons/ExitToApp */
 
@@ -1548,6 +1550,8 @@ object-assign
 /*! @material-ui/icons/PhotoCamera */
 
 /*! @material-ui/icons/Search */
+
+/*! @material-ui/lab/Skeleton */
 
 /*! @material-ui/styles */
 
@@ -1597,7 +1601,7 @@ object-assign
 
 /*! exports provided: __DO_NOT_USE__ActionTypes, applyMiddleware, bindActionCreators, combineReducers, compose, createStore */
 
-/*! exports provided: addExercise, removeExercise, toggleCompleteSet, addExerciseSet, removedSet, getWorkoutLog, updateSet, default */
+/*! exports provided: addExercise, removeExercise, updateSetLbs, updateSetReps, toggleCompleteSet, addExerciseSet, removedSet, getWorkoutLog, updateSet, default */
 
 /*! exports provided: ariaHidden, default */
 
@@ -1729,7 +1733,7 @@ object-assign
 
 /*! exports provided: specialProperty, default */
 
-/*! exports provided: store, persistor, refreshUserToken, me, auth, logout, updateUserThunk, addExercise, removeExercise, toggleCompleteSet, addExerciseSet, removedSet, getWorkoutLog, updateSet */
+/*! exports provided: store, persistor, refreshUserToken, me, auth, logout, updateUserThunk, addExercise, removeExercise, updateSetLbs, updateSetReps, toggleCompleteSet, addExerciseSet, removedSet, getWorkoutLog, updateSet */
 
 /*! exports provided: styleFunction, default */
 
@@ -3388,6 +3392,10 @@ object-assign
   \*************************************************/
 
 /*!**************************************************!*\
+  !*** ./node_modules/@material-ui/icons/Close.js ***!
+  \**************************************************/
+
+/*!**************************************************!*\
   !*** ./node_modules/axios/lib/helpers/spread.js ***!
   \**************************************************/
 
@@ -3968,10 +3976,6 @@ object-assign
   \**********************************************************/
 
 /*!**********************************************************!*\
-  !*** ./node_modules/@material-ui/icons/DeleteForever.js ***!
-  \**********************************************************/
-
-/*!**********************************************************!*\
   !*** ./node_modules/@material-ui/utils/esm/deepmerge.js ***!
   \**********************************************************/
 
@@ -4352,6 +4356,10 @@ object-assign
   \*************************************************************/
 
 /*!*************************************************************!*\
+  !*** ./node_modules/@material-ui/lab/esm/Skeleton/index.js ***!
+  \*************************************************************/
+
+/*!*************************************************************!*\
   !*** ./node_modules/@material-ui/system/esm/breakpoints.js ***!
   \*************************************************************/
 
@@ -4629,6 +4637,10 @@ object-assign
 
 /*!****************************************************************!*\
   !*** ./node_modules/@material-ui/icons/utils/createSvgIcon.js ***!
+  \****************************************************************/
+
+/*!****************************************************************!*\
+  !*** ./node_modules/@material-ui/lab/esm/Skeleton/Skeleton.js ***!
   \****************************************************************/
 
 /*!****************************************************************!*\
@@ -5870,8 +5882,26 @@ object-assign
  * LICENSE file in the root directory of this source tree.
  */
 
+/** @license React v0.19.1
+ * scheduler.production.min.js
+ *
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
 /** @license React v16.13.1
  * react-is.development.js
+ *
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+/** @license React v16.13.1
+ * react-is.production.min.js
  *
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
@@ -5889,6 +5919,15 @@ object-assign
  */
 
 /** @license React v16.14.0
+ * react-dom.production.min.js
+ *
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+/** @license React v16.14.0
  * react-jsx-runtime.development.js
  *
  * Copyright (c) Facebook, Inc. and its affiliates.
@@ -5898,7 +5937,25 @@ object-assign
  */
 
 /** @license React v16.14.0
+ * react-jsx-runtime.production.min.js
+ *
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+/** @license React v16.14.0
  * react.development.js
+ *
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+/** @license React v16.14.0
+ * react.production.min.js
  *
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
