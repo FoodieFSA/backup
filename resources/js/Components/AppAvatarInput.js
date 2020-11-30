@@ -33,6 +33,7 @@ const useStyles = makeStyles((theme) => ({
 const AppAvatarInput = (props) => {
   const classes = useStyles();
   const [img, setImage] = useState('');
+
   useEffect(() => {
     const userImg = props.values[props.myName]
     if (!isClear(userImg) && typeof userImg === 'string') {
@@ -41,9 +42,8 @@ const AppAvatarInput = (props) => {
   }, [])
 
   const hiddenFileInput = useRef(null)
-  const handleImageClick = event => {
+  const handleImageFileChange = (event) => {
     event.preventDefault();
-    hiddenFileInput.current.click();
     const formData = new FormData()
     formData.append('avatar', event.target.files[0])
     formData.append('name', event.target.files[0].name)
@@ -57,11 +57,20 @@ const AppAvatarInput = (props) => {
           props.setFieldValue(props.myName, data)
           setImage(localImageUrl)
         }
+      }).catch(error => {
+        alert('The file must be type of pdf,png,and jpg')
+        console.log(error)
       })
     }
+  }
+
+  const handleImageClick = event => {
+    event.preventDefault();
+    hiddenFileInput.current.click();
   };
+
   return (<>
-    <input type='file' id='file' ref={hiddenFileInput} onChange={(e) => handleImageClick(e)} style={{ display: 'none' }}/>
+    <input type='file' id='file' ref={hiddenFileInput} onChange={(e) => handleImageFileChange(e)} style={{ display: 'none' }}/>
     <div className={classes.container}>
       <Avatar className={classes.avatar} src={img}/>
       <IconButton onClick={(e) => handleImageClick(e)} className={classes.cameraIcon} color="primary" aria-label="upload picture" component="span">
