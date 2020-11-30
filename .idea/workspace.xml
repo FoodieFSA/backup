@@ -26,7 +26,11 @@
   <component name="ChangeListManager">
     <list default="true" id="1c80b1e9-3389-46d7-87ee-038abd240b28" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/UserController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/main.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/main.js.LICENSE.txt" beforeDir="false" afterPath="$PROJECT_DIR$/public/main.js.LICENSE.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/mix-manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/public/mix-manifest.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/Components/AppAvatarInput.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/Components/AppAvatarInput.js" afterDir="false" />
@@ -302,7 +306,7 @@
       <workItem from="1606674721953" duration="6621000" />
       <workItem from="1606688975217" duration="7076000" />
       <workItem from="1606748525120" duration="6213000" />
-      <workItem from="1606759961561" duration="2547000" />
+      <workItem from="1606759961561" duration="3325000" />
     </task>
     <servers />
   </component>

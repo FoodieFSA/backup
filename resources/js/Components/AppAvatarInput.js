@@ -3,6 +3,7 @@ import PhotoCamera from '@material-ui/icons/PhotoCamera'
 import { useRef, useState, useEffect } from 'react'
 import Api from '../Api'
 import { isClear } from './index'
+
 const useStyles = makeStyles((theme) => ({
   avatar: {
     margin: theme.spacing(1),
@@ -42,16 +43,17 @@ const AppAvatarInput = (props) => {
   }, [])
 
   const hiddenFileInput = useRef(null)
-  const handleImageFileChange = (event) => {
+
+  const handleImageFileChange = async (event) => {
     event.preventDefault();
+    event.persist()
     const formData = new FormData()
     formData.append('avatar', event.target.files[0])
     formData.append('name', event.target.files[0].name)
     formData.append('id', props.values.id)
     const imageFile = event.target.files[0];
     if (imageFile) {
-      const localImageUrl = URL.createObjectURL(imageFile);
-      console.log(localImageUrl)
+      // const localImageUrl = URL.createObjectURL(imageFile);
       Api.post('user/uploadAvatar', formData, { headers: { 'Content-Type': 'multipart/form-data' } }).then(response => {
         const { data } = response
         if (!isClear(data)) {
