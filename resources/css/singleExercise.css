@@ -25,19 +25,12 @@ td {
 
 #exerciseHeader button {
     margin: 15px;
-    /*marginRight:"5%"*/
 }
 
 @media only screen and (max-width: 430px) {
     table {
-        /*width: 100%;*/
-        /*margin-left: %;*/
-        /*padding-left: 5%;*/
-        /*padding-right: 5%;*/
-
-        width: 100vw;
-        margin-left: 4%;
-        /*margin-right: 0;*/
+        width: 90vw;
+        margin-left: 5%;
     }
     #exerciseHeader {
         display: flex;

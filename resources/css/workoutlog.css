@@ -1,0 +1,57 @@
+#editNameContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15px;
+}
+#editIcon {
+    background-color: gray;
+    margin-right: 15px;
+    width: 50px;
+    height: 50px;
+}
+
+#workoutHeader {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+#saveIcon {
+    margin-top: 15px;
+    height: 50px;
+}
+
+#WorkoutBtns {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#WorkoutBtns button {
+    margin-top: 20px;
+    width: 10vw;
+}
+@media only screen and (max-width: 430px) {
+    #workoutHeader {
+        display: flex;
+        flex-direction: column-reverse;
+    }
+    #saveIcon {
+        margin-top: 15px;
+        height: 50px;
+        width: 60vw;
+        align-self: center;
+    }
+    #WorkoutBtns button {
+        margin-top: 20px;
+        width: 50vw;
+    }
+}
+/*tablet sizes*/
+@media only screen and (min-device-width: 540px) and (max-device-width: 1024px) {
+    #WorkoutBtns button {
+        margin-top: 20px;
+        width: 40vw;
+    }
+}

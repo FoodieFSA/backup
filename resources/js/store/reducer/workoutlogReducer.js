@@ -1,5 +1,6 @@
 import Api from '../../Api'
 import produce from 'immer'
+import moment from 'moment'
 /**
  * ACTION TYPES
  */
@@ -8,7 +9,7 @@ const GOT_WORKOUTS = 'GOT_WORKOUTS'
 const CREATED_WORKOUT = 'CREATED_WORKOUT'
 const ADDED_EXERCISE = 'ADDED_EXERCISE'
 const REMOVED_EXERCISE = 'REMOVED_EXERCISE'
-
+const EDIT_WORKOUT_NAME = 'EDIT_WORKOUT_NAME'
 // for set
 const ADDED_SET = 'ADDED_SET'
 const UPDATED_SET_LBS = 'UPDATED_SET_LBS'
@@ -23,7 +24,7 @@ const COMPLETE_SET = 'COMPLETE_SET'
 const initialStateWorkout = {
 
   // TODO: use moment to name workoutlogname today's date
-  workoutLogName: '', // day of month    DATE.NOW()
+  workoutLogName: moment.now(), // day of month    DATE.NOW()
   userId: '',
   // adding exercise objects into the exercises array
   exercises: []
@@ -44,7 +45,7 @@ const gotWorkoutLog = (workout) => ({ type: GOT_WORKOUTS, workout })
 const createdWorkout = (workout) => ({ type: CREATED_WORKOUT, workout })
 export const addExercise = (exercise) => ({ type: ADDED_EXERCISE, exercise })
 export const removeExercise = (exerciseIndex) => ({ type: REMOVED_EXERCISE, exerciseIndex })
-
+export const editWorkoutLogName = (inputName) => ({ type: EDIT_WORKOUT_NAME, inputName })
 // for set section...........................
 // const removedSet = (exerciseId, set) => ({ type: REMOVED_SET, exerciseId, set })
 // const updatedSet = (exerciseId, set) => ({ type: UPDATED_SET, exerciseId, set })
@@ -179,6 +180,10 @@ export const getWorkoutLog = (logId, userId) => async (dispatch) => {
 const workoutlogReducer = produce((draft, action) => {
   switch (action.type) {
     // exercise action section..............................................................
+    case EDIT_WORKOUT_NAME: {
+      draft.workoutLogName = action.inputName
+      return draft
+    }
     case ADDED_EXERCISE: {
       const tempExercise = { ...action.exercise, sets: [{ ...emptySet }] }
       draft.exercises.push(tempExercise)

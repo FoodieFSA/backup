@@ -1537,6 +1537,8 @@ object-assign
 
 /*! @material-ui/icons/Close */
 
+/*! @material-ui/icons/Edit */
+
 /*! @material-ui/icons/ExitToApp */
 
 /*! @material-ui/icons/Home */
@@ -1601,7 +1603,7 @@ object-assign
 
 /*! exports provided: __DO_NOT_USE__ActionTypes, applyMiddleware, bindActionCreators, combineReducers, compose, createStore */
 
-/*! exports provided: addExercise, removeExercise, updateSetLbs, updateSetReps, toggleCompleteSet, addExerciseSet, removedSet, getWorkoutLog, updateSet, default */
+/*! exports provided: addExercise, removeExercise, editWorkoutLogName, updateSetLbs, updateSetReps, toggleCompleteSet, addExerciseSet, removedSet, getWorkoutLog, default */
 
 /*! exports provided: ariaHidden, default */
 
@@ -1733,7 +1735,7 @@ object-assign
 
 /*! exports provided: specialProperty, default */
 
-/*! exports provided: store, persistor, refreshUserToken, me, auth, logout, updateUserThunk, addExercise, removeExercise, updateSetLbs, updateSetReps, toggleCompleteSet, addExerciseSet, removedSet, getWorkoutLog, updateSet */
+/*! exports provided: store, persistor, refreshUserToken, me, auth, logout, updateUserThunk, addExercise, removeExercise, editWorkoutLogName, updateSetLbs, updateSetReps, toggleCompleteSet, addExerciseSet, removedSet, getWorkoutLog */
 
 /*! exports provided: styleFunction, default */
 
@@ -3286,6 +3288,10 @@ object-assign
 /*!************************************************!*\
   !*** ./node_modules/yup/es/util/sortFields.js ***!
   \************************************************/
+
+/*!*************************************************!*\
+  !*** ./node_modules/@material-ui/icons/Edit.js ***!
+  \*************************************************/
 
 /*!*************************************************!*\
   !*** ./node_modules/@material-ui/icons/Home.js ***!
