@@ -5,7 +5,10 @@ import SingleExercise from '../Components/SingleExercise'
 import ExerciseModal from '../Components/ExerciseModal'
 import { connect } from 'react-redux'
 import EditIcon from '@material-ui/icons/Edit';
+import SaveIcon from '@material-ui/icons/Save';
 import { editWorkoutLogName } from '../store'
+import '../../css/workoutlog.css'
+
 const WorkoutLog = ({ workoutLog, editWorkoutLogName }) => {
   const [state, setState] = useState({
     workoutLogName: 'MONDAY WORKOUT',
@@ -22,18 +25,22 @@ const WorkoutLog = ({ workoutLog, editWorkoutLogName }) => {
 
   return (
     <div style={{ flex: 1 }}>
-      <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginTop: '15px' }}>
-        <IconButton aria-label="delete" style={{ backgroundColor: 'gray', marginLeft: '15px', marginRight: '15px', width: '50px', height: '50px' }} onClick={() => setEditName(!editName)} >
-          <EditIcon style={{ color: 'white' }}/>
-        </IconButton>
-        {editName ? <TextField
-          style={{ marginLeft: '15px', marginRight: '15px' }}
-          value = {workoutLog.workoutLogName}
-          variant="outlined"
-          onChange={(e) => editWorkoutLogName(e.target.value)}
-        />
-          : <h2>{workoutLog.workoutLogName}</h2>
-        }
+      <div id='workoutHeader'>
+        <div id='editNameContainer'>
+          <IconButton aria-label="delete" id='editIcon' onClick={() => setEditName(!editName)} >
+            <EditIcon style={{ color: 'white' }}/>
+          </IconButton>
+          {editName ? <TextField
+            value = {workoutLog.workoutLogName}
+            variant="outlined"
+            onChange={(e) => editWorkoutLogName(e.target.value)}
+          />
+            : <h2 >{workoutLog.workoutLogName}</h2>
+          }
+        </div>
+        <Button variant="contained" color="primary" id='saveIcon' startIcon={<SaveIcon />}>
+                Save Workout
+        </Button>
       </div>
       {
         workoutLog && workoutLog.exercises.map((exercise, index) => {
@@ -42,9 +49,14 @@ const WorkoutLog = ({ workoutLog, editWorkoutLogName }) => {
           )
         })
       }
-      <Button variant="contained" style={{ marginTop: '10px' }} color="primary" onClick={toggleModal}>
+      <div id ='WorkoutBtns'>
+        <Button variant="contained" color="primary" onClick={toggleModal}>
         Add a New Exercise
-      </Button>
+        </Button>
+        <Button variant="contained" color="secondary" onClick={() => console.log('empty workout page')}>
+            Cancel Workout
+        </Button>
+      </div>
       <ExerciseModal toggleModal={toggleModal} open={state.modalOpen}/>
     </div>
   )

@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
     position: 'absolute',
     backgroundColor: 'gray',
     alignSelf: 'center',
-    marginLeft: '100px',
+    marginLeft: theme.spacing(10),
     bottom: 0,
     width: theme.spacing(3),
     height: theme.spacing(3)
