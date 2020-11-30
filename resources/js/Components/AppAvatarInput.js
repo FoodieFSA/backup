@@ -51,11 +51,13 @@ const AppAvatarInput = (props) => {
     const imageFile = event.target.files[0];
     if (imageFile) {
       const localImageUrl = URL.createObjectURL(imageFile);
-      Api.post('user/uploadAvatar', formData).then(response => {
+      console.log(localImageUrl)
+      Api.post('user/uploadAvatar', formData, { headers: { 'Content-Type': 'multipart/form-data' } }).then(response => {
         const { data } = response
         if (!isClear(data)) {
           props.setFieldValue(props.myName, data)
-          setImage(localImageUrl)
+          console.log(data)
+          setImage(data)
         }
       }).catch(error => {
         alert('The file must be type of pdf,png,and jpg')
