@@ -56,7 +56,7 @@ api.interceptors.response.use(response => response,
       if (isClear(userInfo.id)) {
         return Promise.reject(error);
       }
-      const refreshToken = await onRefreshTokens()
+      const refreshToken = await onRefreshTokens(userInfo)
       if (!isClear(refreshToken)) {
         originalRequest.headers.Authorization = refreshToken.tokenType + ' ' + refreshToken.accessToken
         return new Promise((resolve) => resolve(axios(originalRequest)))
@@ -71,8 +71,8 @@ api.interceptors.response.use(response => response,
     return Promise.reject(error)
   }
 )
-function onRefreshTokens () {
-  return axios.post(`${serverUrl}auth/refresh_token`, null, { withCredentials: true }).then(async response => {
+function onRefreshTokens (userInfo) {
+  return axios.post(`${serverUrl}auth/refresh_token`, null, { withCredentials: true }).then(response => {
     const tokenInfo = response.data
     if (isClear(tokenInfo.accessToken)) {
       return null
@@ -84,7 +84,7 @@ function onRefreshTokens () {
       expiresIn: tokenInfo.expiresIn
     }
     // update user's info and tokens
-    store.dispatch(me())
+    store.dispatch(me(userInfo.id))
     store.dispatch(refreshUserToken(refreshToken))
     return refreshToken
   }).catch(error => {

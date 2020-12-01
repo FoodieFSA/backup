@@ -26,9 +26,9 @@ export const refreshUserToken = (token) => ({ type: REFRESH_TOKEN, token })
 /**
  * THUNK CREATORS
  */
-export const me = () => async (dispatch) => {
+export const me = (userId) => async (dispatch) => {
   try {
-    const res = await Api.get('auth/getMe')
+    const res = await Api.get(`auth/getMe?id=${userId}`)
     dispatch(gotMe(res.data || defaultUser))
   } catch (err) {
     console.error(err)
