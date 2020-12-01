@@ -28,7 +28,7 @@ export const refreshUserToken = (token) => ({ type: REFRESH_TOKEN, token })
  */
 export const me = () => async (dispatch) => {
   try {
-    const res = await Api.get('user/getMe')
+    const res = await Api.get('auth/getMe')
     dispatch(gotMe(res.data || defaultUser))
   } catch (err) {
     console.error(err)
@@ -39,7 +39,7 @@ export const auth = (payload, method) => async (dispatch) => {
   let res
 
   try {
-    res = await Api.post(`/auth/${method}`, payload, { withCredentials: true })
+    res = await Api.post(`auth/${method}`, payload, { withCredentials: true })
   } catch (authError) {
     return throw new Error(authError.response.data.error)
   }
@@ -52,7 +52,7 @@ export const auth = (payload, method) => async (dispatch) => {
 }
 
 export const logout = () => async (dispatch) => {
-  Api.post('/auth/logout').then(response => {
+  Api.post('auth/logout').then(response => {
     const { data } = response
     if (data.isLoggedOut) {
       dispatch(removeUser())

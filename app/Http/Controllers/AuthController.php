@@ -19,7 +19,14 @@ class AuthController extends Controller
         $this->middleware('auth:api', ['except' => ['registerUser','loginUser','refreshToken']]);
 
     }
-
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function getMyself(Request $request):JsonResponse
+    {
+        return response()->json(Auth::user());
+    }
     /**
      * @param Request $request
      * @return JsonResponse

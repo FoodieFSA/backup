@@ -6,7 +6,7 @@ use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Auth;
+
 
 class UserController extends AbsoluteController
 {
@@ -14,14 +14,7 @@ class UserController extends AbsoluteController
     {
         parent::__construct();
     }
-    /**
-     * @param Request $request
-     * @return JsonResponse
-     */
-    public function getMyself(Request $request):JsonResponse
-    {
-        return response()->json(Auth::user());
-    }
+
     /**
      * @param Request $request
      * @return JsonResponse

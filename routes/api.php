@@ -26,17 +26,17 @@ Route::group(['prefix' => 'test'], function () {
 });
 
 Route::group(['prefix' => 'auth'], function () {
+    Route::get('getMe', [UserController::class, 'getMyself']);
+
     Route::post('registerUser',[AuthController::class, 'registerUser']);
     Route::post('loginUser',[AuthController::class, 'loginUser']);
     Route::post('logout',[AuthController::class, 'logoutUser']);
-
     Route::post('refresh_token',[AuthController::class, 'refreshToken']);
 
     Route::delete('deleteUser',[AuthController::class, 'deleteUser']);
 });
 
 Route::group(['prefix' => 'user'], function () {
-    Route::get('getMe', [UserController::class, 'getMyself']);
     Route::put('updateUser', [UserController::class, 'updateUser']);
     Route::get('getUser', [UserController::class, 'getUser']);
     Route::post('uploadAvatar', [UserController::class, 'uploadUserAvatar']);
