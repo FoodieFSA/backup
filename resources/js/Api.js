@@ -1,7 +1,7 @@
 import axios from 'axios'
 // import moment from 'moment'
 import { isClear } from './Components'
-import { refreshUserToken, store, removeUser } from './store'
+import { refreshUserToken, store, removeUser, me } from './store'
 import history from './history'
 
 const serverUrl = process.env.NODE_ENV === 'development' ? 'http://localhost:8000/api/' : 'https://keepupfsa.herokuapp.com/api/'
@@ -56,9 +56,9 @@ api.interceptors.response.use(response => response,
       if (isClear(userInfo.id)) {
         return Promise.reject(error);
       }
-      const refreshUser = await onRefreshTokens(userInfo)
-      if (!isClear(refreshUser)) {
-        originalRequest.headers.Authorization = refreshUser.tokenType + ' ' + refreshUser.accessToken
+      const refreshToken = await onRefreshTokens()
+      if (!isClear(refreshToken)) {
+        originalRequest.headers.Authorization = refreshToken.tokenType + ' ' + refreshToken.accessToken
         return new Promise((resolve) => resolve(axios(originalRequest)))
       } else {
         alert('there is an error, please login back in again and try again!')
@@ -71,22 +71,22 @@ api.interceptors.response.use(response => response,
     return Promise.reject(error)
   }
 )
-function onRefreshTokens (userInfo) {
-  return axios.post(`${serverUrl}auth/refresh_token`, null, { withCredentials: true }).then(response => {
+function onRefreshTokens () {
+  return axios.post(`${serverUrl}auth/refresh_token`, null, { withCredentials: true }).then(async response => {
     const tokenInfo = response.data
     if (isClear(tokenInfo.accessToken)) {
       return null
     }
-    const refreshUser = {
+
+    const refreshToken = {
       accessToken: tokenInfo.accessToken,
       tokenType: tokenInfo.tokenType,
-      expiresIn: tokenInfo.expiresIn,
-      id: userInfo.id,
-      userType: userInfo.userType,
-      userData: userInfo.userData
+      expiresIn: tokenInfo.expiresIn
     }
-    store.dispatch(refreshUserToken(refreshUser))
-    return refreshUser
+    // update user's info and tokens
+    store.dispatch(me())
+    store.dispatch(refreshUserToken(refreshToken))
+    return refreshToken
   }).catch(error => {
     console.error(error)
     return null

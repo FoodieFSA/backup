@@ -26,10 +26,11 @@ Route::group(['prefix' => 'test'], function () {
 });
 
 Route::group(['prefix' => 'auth'], function () {
+    Route::get('getMe', [UserController::class, 'getMyself']);
+
     Route::post('registerUser',[AuthController::class, 'registerUser']);
     Route::post('loginUser',[AuthController::class, 'loginUser']);
     Route::post('logout',[AuthController::class, 'logoutUser']);
-
     Route::post('refresh_token',[AuthController::class, 'refreshToken']);
 
     Route::delete('deleteUser',[AuthController::class, 'deleteUser']);

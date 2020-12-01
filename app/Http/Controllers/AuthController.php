@@ -10,7 +10,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\DB;
-
+use \Firebase\JWT\JWT;
 class AuthController extends Controller
 {
 
@@ -19,7 +19,14 @@ class AuthController extends Controller
         $this->middleware('auth:api', ['except' => ['registerUser','loginUser','refreshToken']]);
 
     }
-
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function getMyself(Request $request):JsonResponse
+    {
+        return response()->json(Auth::user());
+    }
     /**
      * @param Request $request
      * @return JsonResponse
@@ -72,7 +79,7 @@ class AuthController extends Controller
 
             $res = app()->handle($req);
             $responseTokens = json_decode($res->getContent());
-
+//            $decodeinfo= JWT::decode($responseTokens->access_token, env('PASSPORT_PUBLIC_S_KEY'), array('HS256'));
             $cookie = cookie('jid', $responseTokens->refresh_token, 45000);
             return response()->json([
                 'accessToken' =>  $responseTokens->access_token,

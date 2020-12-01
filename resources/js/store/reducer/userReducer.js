@@ -1,6 +1,6 @@
 import Api from '../../Api'
 import history from '../../history'
-// import produce from 'immer'
+import produce from 'immer'
 
 /**
  * ACTION TYPES
@@ -9,6 +9,7 @@ const GET_USER = 'GET_USER'
 const REMOVE_USER = 'REMOVE_USER'
 const REFRESH_TOKEN = ' REFRESH_TOKEN'
 const UPDATE_USER = 'UPDATE_USER'
+const GET_ME = 'GET_ME'
 /**
  * INITIAL STATE
  */
@@ -20,15 +21,15 @@ const defaultUser = { }
 const getUser = (user) => ({ type: GET_USER, user })
 export const removeUser = () => ({ type: REMOVE_USER })
 const updateUser = (userData) => ({ type: UPDATE_USER, userData })
-
-export const refreshUserToken = (user) => ({ type: REFRESH_TOKEN, user })
+const gotMe = (myData) => ({ type: GET_ME, myData })
+export const refreshUserToken = (token) => ({ type: REFRESH_TOKEN, token })
 /**
  * THUNK CREATORS
  */
 export const me = () => async (dispatch) => {
   try {
-    const res = await Api.get('/auth/me')
-    dispatch(getUser(res.data || defaultUser))
+    const res = await Api.get('auth/getMe')
+    dispatch(gotMe(res.data || defaultUser))
   } catch (err) {
     console.error(err)
   }
@@ -38,7 +39,7 @@ export const auth = (payload, method) => async (dispatch) => {
   let res
 
   try {
-    res = await Api.post(`/auth/${method}`, payload, { withCredentials: true })
+    res = await Api.post(`auth/${method}`, payload, { withCredentials: true })
   } catch (authError) {
     return throw new Error(authError.response.data.error)
   }
@@ -51,7 +52,7 @@ export const auth = (payload, method) => async (dispatch) => {
 }
 
 export const logout = () => async (dispatch) => {
-  Api.post('/auth/logout').then(response => {
+  Api.post('auth/logout').then(response => {
     const { data } = response
     if (data.isLoggedOut) {
       dispatch(removeUser())
@@ -77,17 +78,44 @@ export const updateUserThunk = (userPayload) => async (dispatch) => {
 /**
  * REDUCER
  */
-export default function (state = defaultUser, action) {
+const userReducer = produce((draft, action) => {
   switch (action.type) {
     case GET_USER:
       return action.user
     case REMOVE_USER:
       return defaultUser
     case UPDATE_USER:
-      return { ...state, userData: action.userData }
+      draft.userData = action.userData
+      return draft
     case REFRESH_TOKEN:
-      return action.user
+      draft.accessToken = action.token.accessToken
+      draft.expiresIn = action.token.expiresIn
+      draft.tokenType = action.token.tokenType
+      return draft
+    case GET_ME:
+      draft.id = action.myData.id
+      draft.userType = action.myData.user_type
+      draft.userData = action.myData
+      return draft
     default:
-      return state
+      return draft
   }
-}
+}, defaultUser)
+
+export default userReducer
+// export default function (state = defaultUser, action) {
+//   switch (action.type) {
+//     case GET_USER:
+//       return action.user
+//     case REMOVE_USER:
+//       return defaultUser
+//     case UPDATE_USER:
+//       return { ...state, userData: action.userData }
+//     case REFRESH_TOKEN:
+//       return action.user
+//       case  GET_ME：
+//
+//     default:
+//       return state
+//   }
+// }

@@ -14,6 +14,7 @@ class UserController extends AbsoluteController
     {
         parent::__construct();
     }
+
     /**
      * @param Request $request
      * @return JsonResponse
