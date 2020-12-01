@@ -36,6 +36,7 @@ Route::group(['prefix' => 'auth'], function () {
 });
 
 Route::group(['prefix' => 'user'], function () {
+    Route::get('getMe', [UserController::class, 'getMyself']);
     Route::put('updateUser', [UserController::class, 'updateUser']);
     Route::get('getUser', [UserController::class, 'getUser']);
     Route::post('uploadAvatar', [UserController::class, 'uploadUserAvatar']);

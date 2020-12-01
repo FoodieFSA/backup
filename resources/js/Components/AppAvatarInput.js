@@ -46,7 +46,6 @@ const AppAvatarInput = (props) => {
 
   const handleImageFileChange = async (event) => {
     event.preventDefault();
-    event.persist()
     const formData = new FormData()
     formData.append('avatar', event.target.files[0])
     formData.append('name', event.target.files[0].name)
@@ -62,7 +61,7 @@ const AppAvatarInput = (props) => {
           setImage(data)
         }
       }).catch(error => {
-        alert('The file must be type of pdf,png,and jpg')
+        alert('The file must be type of pdf,png,jpeg,and jpg')
         console.log(error)
       })
     }
