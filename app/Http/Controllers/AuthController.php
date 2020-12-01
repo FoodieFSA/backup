@@ -10,7 +10,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\DB;
-use \Firebase\JWT\JWT;
+
 class AuthController extends Controller
 {
 
@@ -25,7 +25,22 @@ class AuthController extends Controller
      */
     public function getMyself(Request $request):JsonResponse
     {
-        return response()->json(Auth::user());
+        $request->validate([
+            'id' => 'required|string',
+        ]);
+        $findUser = User::find($request->id);
+        $authUser = Auth::user();
+
+        if(!$authUser){
+            Auth::login($findUser);
+            $authUser = Auth::user();
+        }
+
+        if($findUser->id == $authUser->id){
+            return response()->json($authUser);
+        }else{
+            return response()->json(['error'=>"id does not match"],401);
+        }
     }
     /**
      * @param Request $request
@@ -79,7 +94,6 @@ class AuthController extends Controller
 
             $res = app()->handle($req);
             $responseTokens = json_decode($res->getContent());
-//            $decodeinfo= JWT::decode($responseTokens->access_token, env('PASSPORT_PUBLIC_S_KEY'), array('HS256'));
             $cookie = cookie('jid', $responseTokens->refresh_token, 45000);
             return response()->json([
                 'accessToken' =>  $responseTokens->access_token,

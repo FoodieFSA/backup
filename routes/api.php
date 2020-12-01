@@ -26,7 +26,7 @@ Route::group(['prefix' => 'test'], function () {
 });
 
 Route::group(['prefix' => 'auth'], function () {
-    Route::get('getMe', [UserController::class, 'getMyself']);
+    Route::get('getMe', [AuthController::class, 'getMyself']);
 
     Route::post('registerUser',[AuthController::class, 'registerUser']);
     Route::post('loginUser',[AuthController::class, 'loginUser']);
