@@ -54,6 +54,7 @@ export const editWorkoutLogName = (inputName) => ({
 // for set section...........................
 // const removedSet = (exerciseId, set) => ({ type: REMOVED_SET, exerciseId, set })
 // const updatedSet = (exerciseId, set) => ({ type: UPDATED_SET, exerciseId, set })
+
 export const updateSetLbs = (exerciseIndex, setIndex, userInputLbs) => ({
   type: UPDATED_SET_LBS,
   exerciseIndex,
